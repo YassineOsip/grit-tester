@@ -1,0 +1,36 @@
+{
+  "schema": 1,
+  "suite": "go-reloaded-demo",
+  "cases": [
+    {
+      "id": "A1",
+      "description": "audit case 1: (low,3) (cap) (up,2) + punctuation",
+      "required": true,
+      "setup": {
+        "sample.txt": "If I make you BREAKFAST IN BED (low, 3) just say thank you instead of: how (cap) did you get in my house (up, 2) ?\n"
+      },
+      "command": "go",
+      "args": ["run", ".", "{{CASE_DIR}}/sample.txt", "{{CASE_DIR}}/result.txt"],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "If I make you breakfast in bed just say thank you instead of: How did you get in MY HOUSE?\n"
+      }
+    },
+    {
+      "id": "C-demo",
+      "description": "hello,world gets its required space",
+      "required": false,
+      "setup": {
+        "sample.txt": "hello,world\n"
+      },
+      "command": "go",
+      "args": ["run", ".", "{{CASE_DIR}}/sample.txt", "{{CASE_DIR}}/result.txt"],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "hello, world\n"
+      }
+    }
+  ]
+}
