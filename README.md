@@ -30,6 +30,18 @@ tester run --suite <name> --target <path-to-implementation>
 tester run --cases <file> --target <path> [-j N] [--strict] [--no-color]
 ```
 
+> **Install trouble?** If `go install` fails with
+> `lookup proxy.golang.org: no such host` (some networks block Google's
+> module proxy), point Go at a mirror:
+>
+> ```console
+> go env -w GOPROXY=https://goproxy.io,direct GOSUMDB=off
+> ```
+>
+> Then re-run `go install github.com/yassineosip/grit-tester/cmd/tester@latest`.
+> `--suite` looks for `suites/<name>/cases.json` relative to the current
+> directory (a clone of this repo), so run it from the repo root.
+
 ## Suites
 
 | Suite | Project | Cases |
