@@ -1,0 +1,84 @@
+✓  PASS  A1 — audit case 1: (low,3) (cap) (up,2) + punctuation
+✓  PASS  A2 — audit case 2: (bin) and (hex) conversion
+✓  PASS  A3 — audit case 3: punctuation only
+✓  PASS  A4 — audit case 4: (cap,2) colon quotes a->an
+✓  PASS  B1 — README main example
+✓  PASS  B2 — hex and bin together
+✓  PASS  B3 — a->an before vowel
+✓  PASS  B4 — punctuation group ellipsis
+✓  PASS  B5 — single up with punctuation
+✓  PASS  B6 — single low
+✓  PASS  B7 — single cap
+✓  PASS  B8 — counted up
+✓  PASS  B9 — uppercase hex digits
+✓  PASS  B10 — binary two
+✓  PASS  B11 — max hex value
+✓  PASS  B12 — binary zero
+✓  PASS  B13 — punctuation with double marks
+✓  PASS  B14 — mixed punctuation group
+✓  PASS  B15 — single word quotes
+✓  PASS  B16 — multi word quotes
+✓  PASS  B17 — capital A to An
+✓  PASS  B18 — a to an before h
+✓  PASS  B19 — a stays a before consonant
+✓  PASS  B20 — flag with nothing before it
+✓  PASS  B21 — zero count changes nothing
+✓  PASS  B22 — count larger than available words
+✓  PASS  B23 — unknown flag word stays untouched
+✓  PASS  B24 — trailing newline preserved
+✓  PASS  B25 — no trailing newline stays absent
+✓  PASS  B26 — contraction stays one word
+✓  PASS  B27 — possessive plus quoted phrase
+✓  PASS  B28 — multiple quote pairs in one line
+✓  PASS  B29 — internal newline collapses to space
+✓  PASS  B30 — tabs collapse to space
+✓  PASS  C1 — count with no space (up,2)
+✓  PASS  C2 — count bigger than available words
+✓  PASS  C3 — marker before any word
+✓  PASS  C4 — zero count
+✓  PASS  C5 — negative count
+✓  PASS  C6 — chained markers feed each other
+✓  PASS  C7 — markers back to back
+✓  PASS  C8 — marker at end of text
+✓  PASS  C9 — only a marker, nothing before
+✓  PASS  C10 — uppercase hex digits
+✓  PASS  C11 — lowercase hex digits
+✓  PASS  C12 — hex max value
+✓  PASS  C13 — binary zero
+✓  PASS  C14 — binary fifteen
+✓  PASS  C15 — counted flag across punctuation
+✓  PASS  C16 — flag after a contraction
+✓  PASS  C17 — unicode word uppercased
+✓  PASS  C18 — marker result feeds a-an
+✓  PASS  C19 — unknown marker passes through
+✓  PASS  C20 — spaced marker syntax (up , 2)
+✓  PASS  C21 — double marks separated by space
+✓  PASS  C22 — mixed group !?
+✓  PASS  C23 — punctuation at start of text
+✓  PASS  C24 — punctuation at end of text
+✓  PASS  C25 — punctuation-only input
+✓  PASS  C26 — comma glued with word after
+✓  PASS  C27 — comma spaced before word
+✓  PASS  C28 — ellipsis with spaces
+✓  PASS  C29 — colon before word
+✓  PASS  C30 — semicolon handling
+✓  PASS  C31 — contraction is not a quote
+✓  PASS  C32 — possessive apostrophe
+✓  PASS  C33 — several quote pairs one line
+✓  PASS  C34 — punctuation inside quotes
+✓  PASS  C35 — multi word quotes
+✓  PASS  C36 — unmatched opening quote
+✓  PASS  C37 — quote directly after colon
+✓  PASS  C38 — capital A before vowel
+✓  PASS  C39 — a before h
+✓  PASS  C40 — a before consonant stays
+✓  PASS  C41 — capital A before h
+✓  PASS  C42 — a at end of text untouched
+✓  PASS  C43 — multiple spaces collapse
+✓  PASS  C44 — tabs collapse
+✓  PASS  C45 — internal newline collapses
+✓  PASS  C46 — trailing newline preserved
+✓  PASS  C47 — empty input
+✓  PASS  C48 — spaces only
+== 82 passed, 0 failed ==
+suite: go-reloaded (82 cases)

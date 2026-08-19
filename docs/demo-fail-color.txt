@@ -1,0 +1,148 @@
+[31m✗[0m  FAIL  A1 — audit case 1: (low,3) (cap) (up,2) + punctuation
+          result.txt: got "If I make you BREAKFAST IN BED (low, 3) just say thank you instead of: how (cap) did you get in my house (up, 2) ?\n", want "If I make you breakfast in bed just say thank you instead of: How did you get in MY HOUSE?\n"
+[31m✗[0m  FAIL  A2 — audit case 2: (bin) and (hex) conversion
+          result.txt: got "I have to pack 101 (bin) outfits. Packed 1a (hex) just to be sure\n", want "I have to pack 5 outfits. Packed 26 just to be sure\n"
+[31m✗[0m  FAIL  A3 — audit case 3: punctuation only
+          result.txt: got "Don not be sad ,because sad backwards is das . And das not good\n", want "Don not be sad, because sad backwards is das. And das not good\n"
+[31m✗[0m  FAIL  A4 — audit case 4: (cap,2) colon quotes a->an
+          result.txt: got "harold wilson (cap, 2) : ' I am a optimist ,but a optimist who carries a raincoat . '\n", want "Harold Wilson: 'I am an optimist, but an optimist who carries a raincoat.'\n"
+[31m✗[0m  FAIL  B1 — README main example
+          result.txt: got "it (cap) was the best of times, it was the worst of TIMES , it was the age of wisdom, it was the age of foolishness (cap, 6) , it was the epoch of belief, it was the epoch of incredulity, it was the season of Light, it was the season of darkness, it was the spring of hope, IT WAS THE (low, 3) winter of despair.\n", want "It was the best of times, it was the worst of TIMES, it was the age of wisdom, It Was The Age Of Foolishness, it was the epoch of belief, it was the epoch of incredulity, it was the season of Light, it was the season of darkness, it was the spring of hope, it was the winter of despair.\n"
+[31m✗[0m  FAIL  B2 — hex and bin together
+          result.txt: got "Simply add 42 (hex) and 10 (bin) and you will see the result is 68.\n", want "Simply add 66 and 2 and you will see the result is 68.\n"
+[31m✗[0m  FAIL  B3 — a->an before vowel
+          result.txt: got "There is no greater agony than bearing a untold story inside you.\n", want "There is no greater agony than bearing an untold story inside you.\n"
+[31m✗[0m  FAIL  B4 — punctuation group ellipsis
+          result.txt: got "Punctuation tests are ... kinda boring ,what do you think ?\n", want "Punctuation tests are... kinda boring, what do you think?\n"
+[31m✗[0m  FAIL  B5 — single up with punctuation
+          result.txt: got "Ready, set, GO !\n", want "Ready, set, GO!\n"
+[32m✓[0m  PASS  B6 — single low
+[31m✗[0m  FAIL  B7 — single cap
+          result.txt: got "Welcome to the Brooklyn bridge (cap)\n", want "Welcome to the Brooklyn Bridge\n"
+[31m✗[0m  FAIL  B8 — counted up
+          result.txt: got "This is so exciting (up, 2)\n", want "This is SO EXCITING\n"
+[31m✗[0m  FAIL  B9 — uppercase hex digits
+          result.txt: got "1E (hex) files were added\n", want "30 files were added\n"
+[31m✗[0m  FAIL  B10 — binary two
+          result.txt: got "It has been 10 (bin) years\n", want "It has been 2 years\n"
+[31m✗[0m  FAIL  B11 — max hex value
+          result.txt: got "ff (hex) is two hundred fifty five\n", want "255 is two hundred fifty five\n"
+[31m✗[0m  FAIL  B12 — binary zero
+          result.txt: got "there are 0 (bin) problems\n", want "there are 0 problems\n"
+[31m✗[0m  FAIL  B13 — punctuation with double marks
+          result.txt: got "I was sitting over there ,and then BAMM !!\n", want "I was sitting over there, and then BAMM!!\n"
+[31m✗[0m  FAIL  B14 — mixed punctuation group
+          result.txt: got "What !? Really\n", want "What!? Really\n"
+[31m✗[0m  FAIL  B15 — single word quotes
+          result.txt: got "I am exactly how they describe me: ' awesome '\n", want "I am exactly how they describe me: 'awesome'\n"
+[31m✗[0m  FAIL  B16 — multi word quotes
+          result.txt: got "As Elton John said: ' I am the most well-known homosexual in the world '\n", want "As Elton John said: 'I am the most well-known homosexual in the world'\n"
+[31m✗[0m  FAIL  B17 — capital A to An
+          result.txt: got "There it was. A amazing rock!\n", want "There it was. An amazing rock!\n"
+[31m✗[0m  FAIL  B18 — a to an before h
+          result.txt: got "it was a hour long wait\n", want "it was an hour long wait\n"
+[32m✓[0m  PASS  B19 — a stays a before consonant
+[31m✗[0m  FAIL  B20 — flag with nothing before it
+          result.txt: got "(up, 2) hello world\n", want "hello world\n"
+[31m✗[0m  FAIL  B21 — zero count changes nothing
+          result.txt: got "(cap, 0) keep this\n", want "keep this\n"
+[31m✗[0m  FAIL  B22 — count larger than available words
+          result.txt: got "one (up, 5)\n", want "ONE\n"
+[32m✓[0m  PASS  B23 — unknown flag word stays untouched
+[32m✓[0m  PASS  B24 — trailing newline preserved
+[31m✗[0m  FAIL  B25 — no trailing newline stays absent
+          result.txt: got "HELLO world\n", want "HELLO world"
+[32m✓[0m  PASS  B26 — contraction stays one word
+[31m✗[0m  FAIL  B27 — possessive plus quoted phrase
+          result.txt: got "the world's end ' is here '\n", want "the world's end 'is here'\n"
+[31m✗[0m  FAIL  B28 — multiple quote pairs in one line
+          result.txt: got "' a ' and ' b '\n", want "'a' and 'b'\n"
+[32m✓[0m  PASS  B29 — internal newline collapses to space
+[31m✗[0m  FAIL  B30 — tabs collapse to space
+          result.txt: got "tab separated (low, 2)\n", want "tab separated\n"
+[33m![0m  BONUS FAIL  C1 — count with no space (up,2)
+          result.txt: got "This is so exciting (up,2)\n", want "This is SO EXCITING\n"
+[33m![0m  BONUS FAIL  C2 — count bigger than available words
+          result.txt: got "one (up, 5)\n", want "ONE\n"
+[33m![0m  BONUS FAIL  C3 — marker before any word
+          result.txt: got "(up, 2) hello world\n", want "hello world\n"
+[33m![0m  BONUS FAIL  C4 — zero count
+          result.txt: got "(cap, 0) keep this\n", want "keep this\n"
+[33m![0m  BONUS FAIL  C5 — negative count
+          result.txt: got "keep (up, -2) this\n", want "keep this\n"
+[31m✗[0m  FAIL  C6 — chained markers feed each other
+          result.txt: got "HELLO world (low, 2) end\n", want "hello world end\n"
+[33m![0m  BONUS FAIL  C7 — markers back to back
+          result.txt: got "a (cap) b\n", want "a b\n"
+[32m✓[0m  PASS  C8 — marker at end of text
+[33m![0m  BONUS FAIL  C9 — only a marker, nothing before
+          result.txt: got "(hex)\n", want ""
+[31m✗[0m  FAIL  C10 — uppercase hex digits
+          result.txt: got "1E (hex) files\n", want "30 files\n"
+[31m✗[0m  FAIL  C11 — lowercase hex digits
+          result.txt: got "1a (hex) files\n", want "26 files\n"
+[31m✗[0m  FAIL  C12 — hex max value
+          result.txt: got "ff (hex)\n", want "255\n"
+[31m✗[0m  FAIL  C13 — binary zero
+          result.txt: got "0 (bin) x\n", want "0 x\n"
+[31m✗[0m  FAIL  C14 — binary fifteen
+          result.txt: got "1111 (bin) x\n", want "15 x\n"
+[31m✗[0m  FAIL  C15 — counted flag across punctuation
+          result.txt: got "one, two (up, 2)\n", want "ONE, TWO\n"
+[32m✓[0m  PASS  C16 — flag after a contraction
+[32m✓[0m  PASS  C17 — unicode word uppercased
+[31m✗[0m  FAIL  C18 — marker result feeds a-an
+          result.txt: got "a (cap) amazing rock\n", want "An amazing rock\n"
+[32m✓[0m  PASS  C19 — unknown marker passes through
+[33m![0m  BONUS FAIL  C20 — spaced marker syntax (up , 2)
+          result.txt: got "go (up , 2) !\n", want "GO!\n"
+[31m✗[0m  FAIL  C21 — double marks separated by space
+          result.txt: got "BAMM ! !\n", want "BAMM!!\n"
+[31m✗[0m  FAIL  C22 — mixed group !?
+          result.txt: got "What !? Really\n", want "What!? Really\n"
+[32m✓[0m  PASS  C23 — punctuation at start of text
+[33m![0m  BONUS FAIL  C24 — punctuation at end of text
+          result.txt: got "hi .\n", want "hi.\n"
+[33m![0m  BONUS FAIL  C25 — punctuation-only input
+          result.txt: got "! ?\n", want "!?\n"
+[31m✗[0m  FAIL  C26 — comma glued with word after
+          result.txt: got "hello,world\n", want "hello, world\n"
+[31m✗[0m  FAIL  C27 — comma spaced before word
+          result.txt: got "there ,and\n", want "there, and\n"
+[31m✗[0m  FAIL  C28 — ellipsis with spaces
+          result.txt: got "wait ... what\n", want "wait... what\n"
+[31m✗[0m  FAIL  C29 — colon before word
+          result.txt: got "instead of: how (cap)\n", want "instead of: How\n"
+[31m✗[0m  FAIL  C30 — semicolon handling
+          result.txt: got "say ; now\n", want "say; now\n"
+[32m✓[0m  PASS  C31 — contraction is not a quote
+[32m✓[0m  PASS  C32 — possessive apostrophe
+[31m✗[0m  FAIL  C33 — several quote pairs one line
+          result.txt: got "' a ' and ' b '\n", want "'a' and 'b'\n"
+[31m✗[0m  FAIL  C34 — punctuation inside quotes
+          result.txt: got "' hello ! '\n", want "'hello!'\n"
+[31m✗[0m  FAIL  C35 — multi word quotes
+          result.txt: got "' I am here '\n", want "'I am here'\n"
+[33m![0m  BONUS FAIL  C36 — unmatched opening quote
+          result.txt: got "say ' hello\n", want "say 'hello\n"
+[31m✗[0m  FAIL  C37 — quote directly after colon
+          result.txt: got "said: ' hi '\n", want "said: 'hi'\n"
+[31m✗[0m  FAIL  C38 — capital A before vowel
+          result.txt: got "A amazing rock\n", want "An amazing rock\n"
+[31m✗[0m  FAIL  C39 — a before h
+          result.txt: got "a hour\n", want "an hour\n"
+[32m✓[0m  PASS  C40 — a before consonant stays
+[31m✗[0m  FAIL  C41 — capital A before h
+          result.txt: got "A historic day\n", want "An historic day\n"
+[32m✓[0m  PASS  C42 — a at end of text untouched
+[32m✓[0m  PASS  C43 — multiple spaces collapse
+[33m![0m  BONUS FAIL  C44 — tabs collapse
+          result.txt: got "tab separated (low, 2)\n", want "tab separated\n"
+[32m✓[0m  PASS  C45 — internal newline collapses
+[32m✓[0m  PASS  C46 — trailing newline preserved
+[33m![0m  BONUS FAIL  C47 — empty input
+          result.txt: got "\n", want ""
+[33m![0m  BONUS FAIL  C48 — spaces only
+          result.txt: got "\n", want ""
+[31m== 18 passed, 50 failed, 14 bonus failed ==[0m
+suite: go-reloaded (82 cases)
