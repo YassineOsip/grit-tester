@@ -21,6 +21,7 @@ import (
 	"github.com/yassineosip/grit-tester/internal/report"
 	"github.com/yassineosip/grit-tester/internal/runner"
 	"github.com/yassineosip/grit-tester/internal/suite"
+	"github.com/yassineosip/grit-tester/suites"
 )
 
 const usage = `tester — run test suites against 01-edu project implementations
@@ -62,7 +63,7 @@ func validate(args []string) int {
 
 func runCases(args []string) int {
 	fs := flag.NewFlagSet("tester run", flag.ContinueOnError)
-	suiteName := fs.String("suite", "", "suite name (suites/<name>/cases.json)")
+	suiteName := fs.String("suite", "", "suite name (built-in, or suites/<name>/cases.json)")
 	casesPath := fs.String("cases", "", "path to a cases.json (alternative to --suite)")
 	target := fs.String("target", ".", "path to the implementation under test")
 	jobs := fs.Int("j", runtime.GOMAXPROCS(0), "run N cases concurrently")
@@ -80,7 +81,7 @@ func runCases(args []string) int {
 	case *casesPath != "":
 		s, err = suite.Load(*casesPath)
 	case *suiteName != "":
-		s, err = suite.Load(filepath.Join("suites", *suiteName, "cases.json"))
+		s, err = loadSuite(*suiteName)
 	default:
 		fmt.Fprintln(os.Stderr, "error: provide --suite or --cases")
 		return 2
@@ -102,6 +103,22 @@ func runCases(args []string) int {
 	rep.Final()
 	fmt.Printf("suite: %s (%d cases)\n", s.Suite, len(s.Cases))
 	return rep.ExitCode()
+}
+
+// loadSuite resolves a suite by name. A local suites/<name>/cases.json
+// file wins — contributors can test new suites without rebuilding — and
+// the suites embedded in the binary are the fallback, so the installed
+// tool works from any directory.
+func loadSuite(name string) (*suite.Suite, error) {
+	local := filepath.Join("suites", name, "cases.json")
+	if _, err := os.Stat(local); err == nil {
+		return suite.Load(local)
+	}
+	data, err := suites.Files.ReadFile(name + "/cases.json")
+	if err != nil {
+		return nil, fmt.Errorf("suite %q not found (looked for %s and for an embedded suite of that name)", name, local)
+	}
+	return suite.Parse(name, data)
 }
 
 // runSuite executes every case on a worker pool and reports in case order,

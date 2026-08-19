@@ -1,5 +1,5 @@
-// Package report renders per-case results in color and computes the
-// process exit code. Bonus (required:false) failures show in amber as
+// Package report renders per-case results as an aligned table and computes
+// the process exit code. Bonus (required:false) failures show in amber as
 // "BONUS FAIL" and do not fail the run unless Strict is set.
 package report
 
@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"io"
 	"runtime"
+	"strings"
 )
 
 const (
@@ -16,11 +17,28 @@ const (
 	reset = "\x1b[0m"
 )
 
-// Reporter accumulates case outcomes and prints them as they arrive.
+// statusWidth is the width of the STATUS column; "BONUS FAIL" is the
+// longest possible value.
+const statusWidth = 10
+
+// colGap is the number of spaces between table columns.
+const colGap = 2
+
+type outcome struct {
+	id          string
+	description string
+	status      string // PASS, FAIL or BONUS FAIL
+	color       string // ANSI code, "" when colors are off
+	mismatches  []string
+}
+
+// Reporter accumulates case outcomes and renders them as a table when
+// Final is called.
 type Reporter struct {
 	out         io.Writer
 	color       bool
 	strict      bool
+	rows        []outcome
 	passed      int
 	failed      int
 	bonusFailed int
@@ -47,22 +65,57 @@ func (r *Reporter) paint(colorCode, s string) string {
 // Passed records a passing case.
 func (r *Reporter) Passed(id, description string) {
 	r.passed++
-	fmt.Fprintf(r.out, "%s  PASS  %s\n", r.paint(green, "\u2713"), withDesc(id, description))
+	r.rows = append(r.rows, outcome{id: id, description: description, status: "PASS", color: green})
 }
 
 // Failed records a failing case. required:false cases are bonus: they print
 // in amber and don't count toward the exit code unless strict.
 func (r *Reporter) Failed(id, description string, mismatches []string, required bool) {
-	switch {
-	case !required && !r.strict:
+	if !required && !r.strict {
 		r.bonusFailed++
-		fmt.Fprintf(r.out, "%s  BONUS FAIL  %s\n", r.paint(amber, "!"), withDesc(id, description))
-	default:
-		r.failed++
-		fmt.Fprintf(r.out, "%s  FAIL  %s\n", r.paint(red, "\u2717"), withDesc(id, description))
+		r.rows = append(r.rows, outcome{id: id, description: description, status: "BONUS FAIL", color: amber, mismatches: mismatches})
+		return
 	}
-	for _, m := range mismatches {
-		fmt.Fprintf(r.out, "          %s\n", m)
+	r.failed++
+	r.rows = append(r.rows, outcome{id: id, description: description, status: "FAIL", color: red, mismatches: mismatches})
+}
+
+// Final renders the results table and the summary line.
+func (r *Reporter) Final() {
+	idWidth := len("ID")
+	for _, row := range r.rows {
+		if len(row.id) > idWidth {
+			idWidth = len(row.id)
+		}
+	}
+
+	fmt.Fprintf(r.out, "%-*s%s%s%s\n",
+		idWidth+colGap, "ID",
+		padRight("STATUS", statusWidth),
+		strings.Repeat(" ", colGap),
+		"DESCRIPTION")
+
+	for _, row := range r.rows {
+		fmt.Fprintf(r.out, "%-*s%s%s%s\n",
+			idWidth+colGap, row.id,
+			r.paint(row.color, padRight(row.status, statusWidth)),
+			strings.Repeat(" ", colGap),
+			row.description)
+		indent := strings.Repeat(" ", idWidth+colGap+statusWidth+colGap)
+		for _, m := range row.mismatches {
+			fmt.Fprintf(r.out, "%s%s\n", indent, m)
+		}
+	}
+	fmt.Fprintln(r.out)
+
+	line := "== " + r.Summary() + " =="
+	switch {
+	case r.failed > 0:
+		fmt.Fprintln(r.out, r.paint(red, line))
+	case r.bonusFailed > 0:
+		fmt.Fprintln(r.out, r.paint(amber, line))
+	default:
+		fmt.Fprintln(r.out, r.paint(green, line))
 	}
 }
 
@@ -75,19 +128,6 @@ func (r *Reporter) Summary() string {
 	return s
 }
 
-// Final prints the summary line.
-func (r *Reporter) Final() {
-	line := "== " + r.Summary() + " =="
-	switch {
-	case r.failed > 0:
-		fmt.Fprintln(r.out, r.paint(red, line))
-	case r.bonusFailed > 0:
-		fmt.Fprintln(r.out, r.paint(amber, line))
-	default:
-		fmt.Fprintln(r.out, r.paint(green, line))
-	}
-}
-
 // ExitCode returns 1 when any required case failed, else 0.
 func (r *Reporter) ExitCode() int {
 	if r.failed > 0 {
@@ -96,9 +136,9 @@ func (r *Reporter) ExitCode() int {
 	return 0
 }
 
-func withDesc(id, description string) string {
-	if description == "" {
-		return id
+func padRight(s string, width int) string {
+	if len(s) >= width {
+		return s
 	}
-	return id + " \u2014 " + description
+	return s + strings.Repeat(" ", width-len(s))
 }

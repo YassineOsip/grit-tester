@@ -8,13 +8,15 @@ Windows.
 $ go install github.com/yassineosip/grit-tester/cmd/tester@latest
 
 $ tester run --suite go-reloaded --target ../my-go-reloaded
-  ✓  PASS  A1 — audit case 1: (low,3) (cap) (up,2) + punctuation
-  ✓  PASS  A2 — audit case 2: (bin) and (hex) conversion
-  ...
+ID   STATUS      DESCRIPTION
+A1   PASS        audit case 1: (low,3) (cap) (up,2) + punctuation
+A2   PASS        audit case 2: (bin) and (hex) conversion
+...
 == 82 passed, 0 failed ==
 ```
 
-- **Suites are JSON** — add a project by writing `cases.json`, not Go code.
+- **Suites are embedded** — the built-in suites ship inside the binary, so it
+  runs from any directory. Add a project by writing `cases.json`, not Go code.
 - **Byte-exact comparisons** — files and stdout are diffed character for
   character, exactly like an auditor does.
 - **Bonus cases** — `"required": false` failures show in amber as
@@ -39,8 +41,9 @@ tester run --cases <file> --target <path> [-j N] [--strict] [--no-color]
 > ```
 >
 > Then re-run `go install github.com/yassineosip/grit-tester/cmd/tester@latest`.
-> `--suite` looks for `suites/<name>/cases.json` relative to the current
-> directory (a clone of this repo), so run it from the repo root.
+> The binary embeds the built-in suites, so it works from any directory —
+> no repo clone needed. If a `suites/` folder exists next to where you run
+> it, local suite files take precedence (useful when writing new suites).
 
 ## Suites
 
@@ -76,6 +79,10 @@ Placeholders: `{{TARGET}}` = the implementation path passed with `--target`;
 (use it to pass files to programs that must run in their own directory,
 like `go run .`).
 
+New suites are compiled into the next release automatically (the embed
+glob picks up `*/cases.json`); to iterate without rebuilding, keep a
+`suites/` folder next to the binary — local files win.
+
 ## What failures look like
 
 Run against a deliberately naive implementation
@@ -83,11 +90,12 @@ Run against a deliberately naive implementation
 
 ```console
 $ tester run --suite go-reloaded --target fixtures/broken-go-reloaded
-  ✗  FAIL  A1 — audit case 1: (low,3) (cap) (up,2) + punctuation
-          result.txt: got "If I make you BREAKFAST IN BED (low, 3) just...",
-                      want "If I make you breakfast in bed just..."
-  !  BONUS FAIL  C44 — tabs collapse
-          result.txt: got "tab separated (low, 2)\n", want "tab separated\n"
+ID   STATUS       DESCRIPTION
+A1   FAIL         audit case 1: (low,3) (cap) (up,2) + punctuation
+                  result.txt: got "If I make you BREAKFAST IN BED (low, 3)...",
+                              want "If I make you breakfast in bed just..."
+C44  BONUS FAIL   tabs collapse
+                  result.txt: got "tab separated (low, 2)\n", want "tab separated\n"
 == 18 passed, 50 failed, 14 bonus failed ==
 ```
 

@@ -41,12 +41,18 @@ func Load(path string) (*Suite, error) {
 	if err != nil {
 		return nil, err
 	}
+	return Parse(path, data)
+}
+
+// Parse decodes and validates a cases.json payload; name is used in error
+// messages only.
+func Parse(name string, data []byte) (*Suite, error) {
 	var s Suite
 	if err := json.Unmarshal(data, &s); err != nil {
-		return nil, fmt.Errorf("parse %s: %w", path, err)
+		return nil, fmt.Errorf("parse %s: %w", name, err)
 	}
 	if err := s.Validate(); err != nil {
-		return nil, fmt.Errorf("validate %s: %w", path, err)
+		return nil, fmt.Errorf("validate %s: %w", name, err)
 	}
 	return &s, nil
 }
