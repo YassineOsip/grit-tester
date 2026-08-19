@@ -17,6 +17,7 @@ import (
 	"runtime"
 	"strings"
 	"sync"
+	"time"
 
 	"github.com/yassineosip/grit-tester/internal/report"
 	"github.com/yassineosip/grit-tester/internal/runner"
@@ -98,11 +99,25 @@ func runCases(args []string) int {
 	}
 
 	rep := report.New(os.Stdout, !*noColor, *strict)
-	runSuite(rep, s, absTarget, *jobs)
+	var live *report.Progress
+	if isTTY(os.Stdout) {
+		live = report.NewProgress(os.Stdout, len(s.Cases))
+		go live.Spin()
+	}
+
+	start := time.Now()
+	runSuite(rep, live, s, absTarget, *jobs)
 
 	rep.Final()
-	fmt.Printf("suite: %s (%d cases)\n", s.Suite, len(s.Cases))
+	fmt.Printf("suite: %s (%d cases) in %s\n", s.Suite, len(s.Cases), time.Since(start).Round(time.Millisecond))
 	return rep.ExitCode()
+}
+
+// isTTY reports whether f is attached to a terminal. Piped or redirected
+// output returns false, so live progress never pollutes captured output.
+func isTTY(f *os.File) bool {
+	fi, err := f.Stat()
+	return err == nil && fi.Mode()&os.ModeCharDevice != 0
 }
 
 // loadSuite resolves a suite by name. A local suites/<name>/cases.json
@@ -122,8 +137,9 @@ func loadSuite(name string) (*suite.Suite, error) {
 }
 
 // runSuite executes every case on a worker pool and reports in case order,
-// so output is stable regardless of how the cases finish.
-func runSuite(rep *report.Reporter, s *suite.Suite, target string, jobs int) {
+// so output is stable regardless of how the cases finish. When live is
+// non-nil, worker activity feeds the progress line.
+func runSuite(rep *report.Reporter, live *report.Progress, s *suite.Suite, target string, jobs int) {
 	if jobs < 1 {
 		jobs = 1
 	}
@@ -143,8 +159,14 @@ func runSuite(rep *report.Reporter, s *suite.Suite, target string, jobs int) {
 		go func() {
 			defer wg.Done()
 			for i := range casesCh {
+				if live != nil {
+					live.Started(s.Cases[i].ID)
+				}
 				ok, diffs, errMsg, stderr := executeCase(target, s.Cases[i])
 				results[i] = outcome{ok: ok, diffs: diffs, errMsg: errMsg, stderr: stderr}
+				if live != nil {
+					live.Done(ok)
+				}
 			}
 		}()
 	}
@@ -153,6 +175,10 @@ func runSuite(rep *report.Reporter, s *suite.Suite, target string, jobs int) {
 	}
 	close(casesCh)
 	wg.Wait()
+
+	if live != nil {
+		live.Finish()
+	}
 
 	for i := range results {
 		c := s.Cases[i]

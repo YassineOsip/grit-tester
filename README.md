@@ -17,6 +17,8 @@ A2   PASS        audit case 2: (bin) and (hex) conversion
 
 - **Suites are embedded** — the built-in suites ship inside the binary, so it
   runs from any directory. Add a project by writing `cases.json`, not Go code.
+- **Live progress** — while cases run, a spinner shows the current case and
+  counts (terminals only; piped output stays clean).
 - **Byte-exact comparisons** — files and stdout are diffed character for
   character, exactly like an auditor does.
 - **Bonus cases** — `"required": false` failures show in amber as
