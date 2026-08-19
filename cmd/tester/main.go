@@ -129,8 +129,10 @@ func runSuite(rep *report.Reporter, s *suite.Suite, target string, jobs int) {
 	}
 
 	type outcome struct {
-		ok         bool
-		mismatches []string
+		ok     bool
+		diffs  []runner.Diff
+		errMsg string
+		stderr string
 	}
 	results := make([]outcome, len(s.Cases))
 
@@ -141,8 +143,8 @@ func runSuite(rep *report.Reporter, s *suite.Suite, target string, jobs int) {
 		go func() {
 			defer wg.Done()
 			for i := range casesCh {
-				ok, mm := executeCase(target, s.Cases[i])
-				results[i] = outcome{ok: ok, mismatches: mm}
+				ok, diffs, errMsg, stderr := executeCase(target, s.Cases[i])
+				results[i] = outcome{ok: ok, diffs: diffs, errMsg: errMsg, stderr: stderr}
 			}
 		}()
 	}
@@ -157,17 +159,23 @@ func runSuite(rep *report.Reporter, s *suite.Suite, target string, jobs int) {
 		if results[i].ok {
 			rep.Passed(c.ID, c.Description)
 		} else {
-			rep.Failed(c.ID, c.Description, results[i].mismatches, c.Required)
+			rep.Failed(c.ID, c.Description, report.Failure{
+				Setup:  c.Setup,
+				Diffs:  results[i].diffs,
+				Err:    results[i].errMsg,
+				Stderr: results[i].stderr,
+			}, c.Required)
 		}
 	}
 }
 
 // executeCase prepares an isolated temp dir, runs the case's command and
-// applies every expectation. Returns ok plus the list of mismatches.
-func executeCase(target string, c suite.Case) (bool, []string) {
+// applies every expectation. Returns ok, the structured diffs, a setup/run
+// error message (if any) and captured stderr.
+func executeCase(target string, c suite.Case) (bool, []runner.Diff, string, string) {
 	dir, err := runner.PrepareDir("", c.Setup)
 	if err != nil {
-		return false, []string{"setup: " + err.Error()}
+		return false, nil, "setup: " + err.Error(), ""
 	}
 	defer os.RemoveAll(dir)
 
@@ -186,25 +194,17 @@ func executeCase(target string, c suite.Case) (bool, []string) {
 
 	res, err := runner.Run(context.Background(), workdir, c.Timeout(), nil, command, args)
 	if err != nil {
-		return false, []string{"run: " + err.Error()}
+		return false, nil, "run: " + err.Error(), ""
 	}
 
-	var mismatches []string
+	var diffs []runner.Diff
 	if c.ExpectExit != nil && res.Exit != *c.ExpectExit {
-		mismatches = append(mismatches, fmt.Sprintf("exit code: got %d, want %d", res.Exit, *c.ExpectExit))
+		diffs = append(diffs, runner.Diff{Where: "exit code", Got: fmt.Sprint(res.Exit), Want: fmt.Sprint(*c.ExpectExit)})
 	}
-	if cr := runner.CompareFiles(dir, c.ExpectFiles); cr != nil {
-		mismatches = append(mismatches, cr.Mismatches...)
+	diffs = append(diffs, runner.CompareFiles(dir, c.ExpectFiles)...)
+	diffs = append(diffs, runner.CompareStdout(res.Stdout, c.ExpectStdout)...)
+	if len(diffs) > 0 {
+		return false, diffs, "", res.Stderr
 	}
-	if cr := runner.CompareStdout(res.Stdout, c.ExpectStdout); cr != nil {
-		mismatches = append(mismatches, cr.Mismatches...)
-	}
-	if len(mismatches) > 0 && res.Stderr != "" {
-		stderr := res.Stderr
-		if len(stderr) > 400 {
-			stderr = stderr[:400] + "..."
-		}
-		mismatches = append(mismatches, "stderr: "+strings.TrimSpace(stderr))
-	}
-	return len(mismatches) == 0, mismatches
+	return true, nil, "", ""
 }

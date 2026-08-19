@@ -92,15 +92,27 @@ Run against a deliberately naive implementation
 $ tester run --suite go-reloaded --target fixtures/broken-go-reloaded
 ID   STATUS       DESCRIPTION
 A1   FAIL         audit case 1: (low,3) (cap) (up,2) + punctuation
-                  result.txt: got "If I make you BREAKFAST IN BED (low, 3)...",
-                              want "If I make you breakfast in bed just..."
+     │ input (sample.txt)
+     │   If I make you BREAKFAST IN BED (low, 3) just say thank you ...
+     │   \n
+     │ got (result.txt)
+     │   If I make you BREAKFAST IN BED (low, 3) just say thank you ...
+     │   \n
+     │ want
+     │   If I make you breakfast in bed just say thank you instead of: How ...
+     │   \n
 C44  BONUS FAIL   tabs collapse
-                  result.txt: got "tab separated (low, 2)\n", want "tab separated\n"
+     │ got (result.txt)
+     │   tab separated (low, 2)\n
+     │ want
+     │   tab separated\n
 == 18 passed, 50 failed, 14 bonus failed ==
 ```
 
-Every mismatch shows the exact difference — required failures are red,
-bonus failures are amber and don't fail the run unless `--strict` is set.
+Every failure shows the full story — the input that was fed in, what the
+program produced, and what was expected — each in its own labeled block.
+Required failures are red, bonus failures are amber and don't fail the run
+unless `--strict` is set.
 
 ## License
 

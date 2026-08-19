@@ -7,7 +7,10 @@ import (
 	"fmt"
 	"io"
 	"runtime"
+	"sort"
 	"strings"
+
+	"github.com/yassineosip/grit-tester/internal/runner"
 )
 
 const (
@@ -24,12 +27,24 @@ const statusWidth = 10
 // colGap is the number of spaces between table columns.
 const colGap = 2
 
+// wrapWidth hard-wraps long content lines so failure blocks stay readable
+// on narrow terminals.
+const wrapWidth = 90
+
+// Failure carries the structured detail shown under a failing row.
+type Failure struct {
+	Setup  map[string]string // input files the case created
+	Diffs  []runner.Diff     // structured got/want mismatches
+	Err    string            // setup/run error (no got/want sides)
+	Stderr string            // captured stderr, if any
+}
+
 type outcome struct {
 	id          string
 	description string
 	status      string // PASS, FAIL or BONUS FAIL
 	color       string // ANSI code, "" when colors are off
-	mismatches  []string
+	failure     Failure
 }
 
 // Reporter accumulates case outcomes and renders them as a table when
@@ -70,14 +85,14 @@ func (r *Reporter) Passed(id, description string) {
 
 // Failed records a failing case. required:false cases are bonus: they print
 // in amber and don't count toward the exit code unless strict.
-func (r *Reporter) Failed(id, description string, mismatches []string, required bool) {
+func (r *Reporter) Failed(id, description string, f Failure, required bool) {
 	if !required && !r.strict {
 		r.bonusFailed++
-		r.rows = append(r.rows, outcome{id: id, description: description, status: "BONUS FAIL", color: amber, mismatches: mismatches})
+		r.rows = append(r.rows, outcome{id: id, description: description, status: "BONUS FAIL", color: amber, failure: f})
 		return
 	}
 	r.failed++
-	r.rows = append(r.rows, outcome{id: id, description: description, status: "FAIL", color: red, mismatches: mismatches})
+	r.rows = append(r.rows, outcome{id: id, description: description, status: "FAIL", color: red, failure: f})
 }
 
 // Final renders the results table and the summary line.
@@ -101,9 +116,8 @@ func (r *Reporter) Final() {
 			r.paint(row.color, padRight(row.status, statusWidth)),
 			strings.Repeat(" ", colGap),
 			row.description)
-		indent := strings.Repeat(" ", idWidth+colGap+statusWidth+colGap)
-		for _, m := range row.mismatches {
-			fmt.Fprintf(r.out, "%s%s\n", indent, m)
+		if row.status != "PASS" {
+			r.renderFailure(row.failure, idWidth)
 		}
 	}
 	fmt.Fprintln(r.out)
@@ -117,6 +131,84 @@ func (r *Reporter) Final() {
 	default:
 		fmt.Fprintln(r.out, r.paint(green, line))
 	}
+}
+
+// renderFailure prints the structured detail under a failing row:
+// run/setup errors, stderr, the case input, then every got/want pair.
+func (r *Reporter) renderFailure(f Failure, idWidth int) {
+	gutter := strings.Repeat(" ", idWidth+colGap+statusWidth+colGap) + "│ "
+
+	if f.Err != "" {
+		fmt.Fprintf(r.out, "%s%s\n", gutter, r.paint(red, f.Err))
+	}
+	if f.Stderr != "" {
+		stderr := strings.TrimSpace(f.Stderr)
+		if len(stderr) > 400 {
+			stderr = stderr[:400] + "..."
+		}
+		fmt.Fprintf(r.out, "%s%s\n", gutter, "stderr: "+stderr)
+	}
+
+	keys := make([]string, 0, len(f.Setup))
+	for k := range f.Setup {
+		keys = append(keys, k)
+	}
+	sort.Strings(keys)
+	for _, k := range keys {
+		r.renderContent(gutter, "input ("+k+")", "", f.Setup[k])
+	}
+
+	diffs := append([]runner.Diff(nil), f.Diffs...)
+	sort.Slice(diffs, func(i, j int) bool { return diffs[i].Where < diffs[j].Where })
+	for _, d := range diffs {
+		got := d.Got
+		if d.Missing {
+			got = "(missing)"
+		}
+		r.renderContent(gutter, "got ("+d.Where+")", red, got)
+		r.renderContent(gutter, "want", green, d.Want)
+	}
+}
+
+// renderContent prints a labeled text block: the label on its own line,
+// content lines indented under it, and a marker for trailing newlines.
+func (r *Reporter) renderContent(gutter, label, colorCode, text string) {
+	fmt.Fprintf(r.out, "%s%s\n", gutter, r.paint(colorCode, label))
+	for _, line := range wrapContent(text) {
+		fmt.Fprintf(r.out, "%s  %s\n", gutter, line)
+	}
+	if n := trailingNewlines(text); n > 0 {
+		if n == 1 {
+			fmt.Fprintf(r.out, "%s  \\n\n", gutter)
+		} else {
+			fmt.Fprintf(r.out, "%s  \\n (x%d)\n", gutter, n)
+		}
+	}
+}
+
+// wrapContent splits text into display lines, hard-wrapping at wrapWidth.
+func wrapContent(text string) []string {
+	var out []string
+	for _, logical := range strings.Split(text, "\n") {
+		for len(logical) > wrapWidth {
+			out = append(out, logical[:wrapWidth])
+			logical = logical[wrapWidth:]
+		}
+		out = append(out, logical)
+	}
+	for len(out) > 0 && out[len(out)-1] == "" {
+		out = out[:len(out)-1]
+	}
+	return out
+}
+
+// trailingNewlines counts the \n characters at the end of s.
+func trailingNewlines(s string) int {
+	n := 0
+	for i := len(s) - 1; i >= 0 && s[i] == '\n'; i-- {
+		n++
+	}
+	return n
 }
 
 // Summary describes the run in one line.

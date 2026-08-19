@@ -1,43 +1,44 @@
 package runner
 
 import (
-	"fmt"
 	"os"
 	"path/filepath"
 )
 
-// CompareResult lists every mismatch found; nil means a byte-exact pass.
-type CompareResult struct {
-	Mismatches []string
+// Diff is one byte-exact mismatch: where it happened, what was produced
+// and what was expected.
+type Diff struct {
+	Where   string // file path, "stdout" or "exit code"
+	Got     string
+	Want    string
+	Missing bool // expected file does not exist
 }
 
 // CompareFiles byte-compares every expected file against dir.
-func CompareFiles(dir string, expect map[string]string) *CompareResult {
-	var mismatches []string
+// An empty result means a byte-exact pass.
+func CompareFiles(dir string, expect map[string]string) []Diff {
+	var diffs []Diff
 	for rel, want := range expect {
 		full := filepath.Join(dir, filepath.FromSlash(rel))
 		got, err := os.ReadFile(full)
 		if err != nil {
-			mismatches = append(mismatches, fmt.Sprintf("%s: missing (%v)", rel, err))
+			diffs = append(diffs, Diff{Where: rel, Want: want, Missing: true})
 			continue
 		}
 		if string(got) != want {
-			mismatches = append(mismatches, fmt.Sprintf("%s: got %q, want %q", rel, string(got), want))
+			diffs = append(diffs, Diff{Where: rel, Got: string(got), Want: want})
 		}
 	}
-	if len(mismatches) == 0 {
-		return nil
-	}
-	return &CompareResult{Mismatches: mismatches}
+	return diffs
 }
 
 // CompareStdout byte-compares stdout against want; nil want means "no check".
-func CompareStdout(got string, want *string) *CompareResult {
+func CompareStdout(got string, want *string) []Diff {
 	if want == nil {
 		return nil
 	}
 	if got != *want {
-		return &CompareResult{Mismatches: []string{fmt.Sprintf("stdout: got %q, want %q", got, *want)}}
+		return []Diff{{Where: "stdout", Got: got, Want: *want}}
 	}
 	return nil
 }
