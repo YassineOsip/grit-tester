@@ -53,6 +53,7 @@ tester run --cases <file> --target <path> [-j N] [--strict] [--no-color]
 |---|---|---|
 | `go-reloaded` | text editing tool | 82 |
 | `ascii-art` | ASCII-art banners | 33 |
+| `ascii-art-fs` | banners via the fs API | 15 |
 
 ## Adding a suite
 
