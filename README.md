@@ -57,6 +57,7 @@ tester run --cases <file> --target <path> [-j N] [--strict] [--no-color]
 | `ascii-art-output` | `--output` file flag | 11 |
 | `ascii-art-justify` | `--align` to terminal width | 28 |
 | `ascii-art-color` | `--color` ANSI spans | 27 |
+| `ascii-art-reverse` | decode ASCII art back to text | 9 |
 
 ## Adding a suite
 
