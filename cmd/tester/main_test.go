@@ -47,3 +47,32 @@ func TestPrepareExpectFilesCleanupRemovesTargetFiles(t *testing.T) {
 		t.Errorf("target file must be cleaned up, stat err = %v", err)
 	}
 }
+
+// TestExecuteCasePassesEnv runs a case whose command is this test binary
+// itself with -test.run=TestGritEnvHelper: the helper writes a marker file
+// only when the env var flowed through executeCase -> runner.Run (the file
+// avoids the helper's testing-framework "PASS" line polluting stdout). When
+// go test runs the helper directly the env is unset and it stays silent.
+func TestExecuteCasePassesEnv(t *testing.T) {
+	c := suite.Case{
+		ID:      "env",
+		Command: os.Args[0],
+		Args:    []string{"-test.run=TestGritEnvHelper"},
+		Env:     map[string]string{"GRIT_ENV_TEST": "present"},
+		ExpectFiles: map[string]string{
+			"env.txt": "present",
+		},
+	}
+	ok, diffs, errMsg, _ := executeCase(t.TempDir(), c)
+	if !ok {
+		t.Fatalf("env case failed: %s: %v", errMsg, diffs)
+	}
+}
+
+func TestGritEnvHelper(t *testing.T) {
+	if os.Getenv("GRIT_ENV_TEST") == "present" {
+		if err := os.WriteFile("env.txt", []byte("present"), 0o644); err != nil {
+			t.Fatal(err)
+		}
+	}
+}

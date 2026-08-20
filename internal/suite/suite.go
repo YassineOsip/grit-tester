@@ -28,6 +28,7 @@ type Case struct {
 	Setup        map[string]string `json:"setup,omitempty"` // path -> content
 	Command      string            `json:"command"`
 	Args         []string          `json:"args,omitempty"`
+	Env          map[string]string `json:"env,omitempty"`     // extra environment for the case's process
 	Workdir      string            `json:"workdir,omitempty"` // may contain {{TARGET}}
 	TimeoutSec   int               `json:"timeout_sec,omitempty"`
 	ExpectFiles  map[string]string `json:"expect_files,omitempty"` // path -> byte-exact content
@@ -84,6 +85,11 @@ func (s *Suite) Validate() error {
 		}
 		if len(c.ExpectFiles) == 0 && c.ExpectStdout == nil && c.ExpectExit == nil {
 			return fmt.Errorf("case %s: needs at least one expectation (expect_files, expect_stdout or expect_exit)", c.ID)
+		}
+		for k := range c.Env {
+			if k == "" {
+				return fmt.Errorf("case %s: env keys must not be empty", c.ID)
+			}
 		}
 	}
 	return nil

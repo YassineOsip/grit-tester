@@ -241,8 +241,12 @@ func executeCase(target string, c suite.Case) (bool, []runner.Diff, string, stri
 		a = strings.ReplaceAll(a, "{{TARGET}}", target)
 		args[i] = strings.ReplaceAll(a, "{{CASE_DIR}}", dir)
 	}
+	env := make([]string, 0, len(c.Env))
+	for k, v := range c.Env {
+		env = append(env, k+"="+v)
+	}
 
-	res, err := runner.Run(context.Background(), workdir, c.Timeout(), nil, command, args)
+	res, err := runner.Run(context.Background(), workdir, c.Timeout(), env, command, args)
 	if err != nil {
 		return false, nil, "run: " + err.Error(), ""
 	}

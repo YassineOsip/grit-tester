@@ -55,6 +55,7 @@ tester run --cases <file> --target <path> [-j N] [--strict] [--no-color]
 | `ascii-art` | ASCII-art banners | 33 |
 | `ascii-art-fs` | banners via the fs API | 15 |
 | `ascii-art-output` | `--output` file flag | 11 |
+| `ascii-art-justify` | `--align` to terminal width | 28 |
 
 ## Adding a suite
 
@@ -72,6 +73,7 @@ Create `suites/<project>/cases.json`:
       "setup": {"sample.txt": "input text\n"},
       "command": "go",
       "args": ["run", ".", "{{CASE_DIR}}/sample.txt", "{{CASE_DIR}}/result.txt"],
+      "env": {"COLUMNS": "100"},
       "workdir": "{{TARGET}}",
       "expect_files": {"result.txt": "expected output\n"}
     }
@@ -82,7 +84,8 @@ Create `suites/<project>/cases.json`:
 Placeholders: `{{TARGET}}` = the implementation path passed with `--target`;
 `{{CASE_DIR}}` = the isolated per-case temp dir where `setup` files live
 (use it to pass files to programs that must run in their own directory,
-like `go run .`).
+like `go run .`). `env` adds environment variables for the case's process
+(e.g. `COLUMNS` pins the terminal width alignment programs measure).
 
 `expect_files` keys may contain `{{TARGET}}` / `{{CASE_DIR}}` to check
 files a case writes outside the case dir (e.g. an `--output` flag writing
