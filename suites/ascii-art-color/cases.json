@@ -1,0 +1,415 @@
+{
+  "schema": 1,
+  "suite": "ascii-art-color",
+  "cases": [
+    {
+      "id": "C1",
+      "description": "audit: whole string red",
+      "required": true,
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "--color=red",
+        "hello world"
+      ],
+      "workdir": "{{TARGET}}",
+      "expect_stdout": "\u001b[31m _              _   _                                           _       _  \u001b[0m\n\u001b[31m| |            | | | |                                         | |     | | \u001b[0m\n\u001b[31m| |__     ___  | | | |   ___         __      __   ___    _ __  | |   __| | \u001b[0m\n\u001b[31m|  _ \\   / _ \\ | | | |  / _ \\        \\ \\ /\\ / /  / _ \\  | '__| | |  / _` | \u001b[0m\n\u001b[31m| | | | |  __/ | | | | | (_) |        \\ V  V /  | (_) | | |    | | | (_| | \u001b[0m\n\u001b[31m|_| |_|  \\___| |_| |_|  \\___/          \\_/\\_/    \\___/  |_|    |_|  \\__,_| \u001b[0m\n\u001b[31m                                                                           \u001b[0m\n\u001b[31m                                                                           \u001b[0m\n"
+    },
+    {
+      "id": "C2",
+      "description": "audit: whole string green",
+      "required": true,
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "--color=green",
+        "1 + 1 = 2"
+      ],
+      "workdir": "{{TARGET}}",
+      "expect_stdout": "\u001b[32m                                                         \u001b[0m\n\u001b[32m _           _           _         ______         ____   \u001b[0m\n\u001b[32m/ |        _| |_        / |       |______|       |___ \\  \u001b[0m\n\u001b[32m| |       |_   _|       | |        ______          __) | \u001b[0m\n\u001b[32m| |         |_|         | |       |______|        / __/  \u001b[0m\n\u001b[32m|_|                     |_|                      |_____| \u001b[0m\n\u001b[32m                                                         \u001b[0m\n\u001b[32m                                                         \u001b[0m\n"
+    },
+    {
+      "id": "C3",
+      "description": "audit: whole string yellow",
+      "required": true,
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "--color=yellow",
+        "(%&) ??"
+      ],
+      "workdir": "{{TARGET}}",
+      "expect_stdout": "\u001b[33m  __  _   __          __          ___    ___   \u001b[0m\n\u001b[33m / / (_) / /   ___    \\ \\        |__ \\  |__ \\  \u001b[0m\n\u001b[33m| |     / /   ( _ )    | |          ) |    ) | \u001b[0m\n\u001b[33m| |    / /    / _ \\/\\  | |         / /    / /  \u001b[0m\n\u001b[33m| |   / / _  | (_>  <  | |        |_|    |_|   \u001b[0m\n\u001b[33m| |  /_/ (_)  \\___/\\/  | |        (_)    (_)   \u001b[0m\n\u001b[33m \\_\\                  /_/                      \u001b[0m\n\u001b[33m                                               \u001b[0m\n"
+    },
+    {
+      "id": "C4",
+      "description": "audit: substring GuYs orange",
+      "required": true,
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "--color=rgb(255, 165, 0)",
+        "GuYs",
+        "HeY GuYs"
+      ],
+      "workdir": "{{TARGET}}",
+      "expect_stdout": " _    _         __     __       \u001b[38;2;255;165;0m  _____          __     __       \u001b[0m\n| |  | |        \\ \\   / /       \u001b[38;2;255;165;0m / ____|         \\ \\   / /       \u001b[0m\n| |__| |   ___   \\ \\_/ /        \u001b[38;2;255;165;0m| |  __   _   _   \\ \\_/ /   ___  \u001b[0m\n|  __  |  / _ \\   \\   /         \u001b[38;2;255;165;0m| | |_ | | | | |   \\   /   / __| \u001b[0m\n| |  | | |  __/    | |          \u001b[38;2;255;165;0m| |__| | | |_| |    | |    \\__ \\ \u001b[0m\n|_|  |_|  \\___|    |_|          \u001b[38;2;255;165;0m \\_____|  \\__,_|    |_|    |___/ \u001b[0m\n                                \u001b[38;2;255;165;0m                                 \u001b[0m\n                                \u001b[38;2;255;165;0m                                 \u001b[0m\n"
+    },
+    {
+      "id": "C5",
+      "description": "audit: letter B blue",
+      "required": true,
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "--color=blue",
+        "B",
+        "RGB()"
+      ],
+      "workdir": "{{TARGET}}",
+      "expect_stdout": " _____     _____  \u001b[34m ____   \u001b[0m  __ __   \n|  __ \\   / ____| \u001b[34m|  _ \\  \u001b[0m / / \\ \\  \n| |__) | | |  __  \u001b[34m| |_) | \u001b[0m| |   | | \n|  _  /  | | |_ | \u001b[34m|  _ <  \u001b[0m| |   | | \n| | \\ \\  | |__| | \u001b[34m| |_) | \u001b[0m| |   | | \n|_|  \\_\\  \\_____| \u001b[34m|____/  \u001b[0m| |   | | \n                  \u001b[34m        \u001b[0m \\_\\ /_/  \n                  \u001b[34m        \u001b[0m          \n"
+    },
+    {
+      "id": "C6",
+      "description": "audit: subject example: kit in kitten + kit",
+      "required": true,
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "--color=red",
+        "kit",
+        "a king kitten have kit"
+      ],
+      "workdir": "{{TARGET}}",
+      "expect_stdout": "                      _                        \u001b[31m        _   _    \u001b[0m _                          _                                   \u001b[31m        _   _    \u001b[0m\n               _     (_)                       \u001b[31m _     (_) | |   \u001b[0m| |                        | |                                  \u001b[31m _     (_) | |   \u001b[0m\n  __ _        | | _   _   _ __     __ _        \u001b[31m| | _   _  | |_  \u001b[0m| |_    ___   _ __         | |__     __ _  __   __   ___        \u001b[31m| | _   _  | |_  \u001b[0m\n / _` |       | |/ / | | | '_ \\   / _` |       \u001b[31m| |/ / | | | __| \u001b[0m| __|  / _ \\ | '_ \\        |  _ \\   / _` | \\ \\ / /  / _ \\       \u001b[31m| |/ / | | | __| \u001b[0m\n| (_| |       |   <  | | | | | | | (_| |       \u001b[31m|   <  | | \\ |_  \u001b[0m\\ |_  |  __/ | | | |       | | | | | (_| |  \\ V /  |  __/       \u001b[31m|   <  | | \\ |_  \u001b[0m\n \\__,_|       |_|\\_\\ |_| |_| |_|  \\__, |       \u001b[31m|_|\\_\\ |_|  \\__| \u001b[0m \\__|  \\___| |_| |_|       |_| |_|  \\__,_|   \\_/    \\___|       \u001b[31m|_|\\_\\ |_|  \\__| \u001b[0m\n                                   __/ |       \u001b[31m                 \u001b[0m                                                                \u001b[31m                 \u001b[0m\n                                  |___/        \u001b[31m                 \u001b[0m                                                                \u001b[31m                 \u001b[0m\n"
+    },
+    {
+      "id": "C7",
+      "description": "audit: substring second-until-last letter",
+      "required": true,
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "--color=cyan",
+        "ello worl",
+        "hello world"
+      ],
+      "workdir": "{{TARGET}}",
+      "expect_stdout": " _      \u001b[36m        _   _                                           _  \u001b[0m     _  \n| |     \u001b[36m       | | | |                                         | | \u001b[0m    | | \n| |__   \u001b[36m  ___  | | | |   ___         __      __   ___    _ __  | | \u001b[0m  __| | \n|  _ \\  \u001b[36m / _ \\ | | | |  / _ \\        \\ \\ /\\ / /  / _ \\  | '__| | | \u001b[0m / _` | \n| | | | \u001b[36m|  __/ | | | | | (_) |        \\ V  V /  | (_) | | |    | | \u001b[0m| (_| | \n|_| |_| \u001b[36m \\___| |_| |_|  \\___/          \\_/\\_/    \\___/  |_|    |_| \u001b[0m \\__,_| \n        \u001b[36m                                                           \u001b[0m        \n        \u001b[36m                                                           \u001b[0m        \n"
+    },
+    {
+      "id": "C8",
+      "description": "audit: second letter e",
+      "required": true,
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "--color=magenta",
+        "e",
+        "hello world"
+      ],
+      "workdir": "{{TARGET}}",
+      "expect_stdout": " _      \u001b[35m       \u001b[0m _   _                                           _       _  \n| |     \u001b[35m       \u001b[0m| | | |                                         | |     | | \n| |__   \u001b[35m  ___  \u001b[0m| | | |   ___         __      __   ___    _ __  | |   __| | \n|  _ \\  \u001b[35m / _ \\ \u001b[0m| | | |  / _ \\        \\ \\ /\\ / /  / _ \\  | '__| | |  / _` | \n| | | | \u001b[35m|  __/ \u001b[0m| | | | | (_) |        \\ V  V /  | (_) | | |    | | | (_| | \n|_| |_| \u001b[35m \\___| \u001b[0m|_| |_|  \\___/          \\_/\\_/    \\___/  |_|    |_|  \\__,_| \n        \u001b[35m       \u001b[0m                                                            \n        \u001b[35m       \u001b[0m                                                            \n"
+    },
+    {
+      "id": "C9",
+      "description": "audit: two letters wo",
+      "required": true,
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "--color=red",
+        "wo",
+        "hello world"
+      ],
+      "workdir": "{{TARGET}}",
+      "expect_stdout": " _              _   _                \u001b[31m                   \u001b[0m        _       _  \n| |            | | | |               \u001b[31m                   \u001b[0m       | |     | | \n| |__     ___  | | | |   ___         \u001b[31m__      __   ___   \u001b[0m _ __  | |   __| | \n|  _ \\   / _ \\ | | | |  / _ \\        \u001b[31m\\ \\ /\\ / /  / _ \\  \u001b[0m| '__| | |  / _` | \n| | | | |  __/ | | | | | (_) |       \u001b[31m \\ V  V /  | (_) | \u001b[0m| |    | | | (_| | \n|_| |_|  \\___| |_| |_|  \\___/        \u001b[31m  \\_/\\_/    \\___/  \u001b[0m|_|    |_|  \\__,_| \n                                     \u001b[31m                   \u001b[0m                   \n                                     \u001b[31m                   \u001b[0m                   \n"
+    },
+    {
+      "id": "C10",
+      "description": "audit: two colors in one string",
+      "required": true,
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "--color=red",
+        "o",
+        "--color=blue",
+        "ll",
+        "hello world"
+      ],
+      "workdir": "{{TARGET}}",
+      "expect_stdout": " _             \u001b[34m _   _  \u001b[0m\u001b[31m        \u001b[0m                 \u001b[31m        \u001b[0m        _       _  \n| |            \u001b[34m| | | | \u001b[0m\u001b[31m        \u001b[0m                 \u001b[31m        \u001b[0m       | |     | | \n| |__     ___  \u001b[34m| | | | \u001b[0m\u001b[31m  ___   \u001b[0m      __      __ \u001b[31m  ___   \u001b[0m _ __  | |   __| | \n|  _ \\   / _ \\ \u001b[34m| | | | \u001b[0m\u001b[31m / _ \\  \u001b[0m      \\ \\ /\\ / / \u001b[31m / _ \\  \u001b[0m| '__| | |  / _` | \n| | | | |  __/ \u001b[34m| | | | \u001b[0m\u001b[31m| (_) | \u001b[0m       \\ V  V /  \u001b[31m| (_) | \u001b[0m| |    | | | (_| | \n|_| |_|  \\___| \u001b[34m|_| |_| \u001b[0m\u001b[31m \\___/  \u001b[0m        \\_/\\_/   \u001b[31m \\___/  \u001b[0m|_|    |_|  \\__,_| \n               \u001b[34m        \u001b[0m\u001b[31m        \u001b[0m                 \u001b[31m        \u001b[0m                   \n               \u001b[34m        \u001b[0m\u001b[31m        \u001b[0m                 \u001b[31m        \u001b[0m                   \n"
+    },
+    {
+      "id": "C11",
+      "description": "audit: #hex notation",
+      "required": true,
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "--color=rgb(255, 0, 0)",
+        "h",
+        "hello world"
+      ],
+      "workdir": "{{TARGET}}",
+      "expect_stdout": "\u001b[38;2;255;0;0m _      \u001b[0m        _   _                                           _       _  \n\u001b[38;2;255;0;0m| |     \u001b[0m       | | | |                                         | |     | | \n\u001b[38;2;255;0;0m| |__   \u001b[0m  ___  | | | |   ___         __      __   ___    _ __  | |   __| | \n\u001b[38;2;255;0;0m|  _ \\  \u001b[0m / _ \\ | | | |  / _ \\        \\ \\ /\\ / /  / _ \\  | '__| | |  / _` | \n\u001b[38;2;255;0;0m| | | | \u001b[0m|  __/ | | | | | (_) |        \\ V  V /  | (_) | | |    | | | (_| | \n\u001b[38;2;255;0;0m|_| |_| \u001b[0m \\___| |_| |_|  \\___/          \\_/\\_/    \\___/  |_|    |_|  \\__,_| \n\u001b[38;2;255;0;0m        \u001b[0m                                                                   \n\u001b[38;2;255;0;0m        \u001b[0m                                                                   \n"
+    },
+    {
+      "id": "C12",
+      "description": "audit: rgb() notation",
+      "required": true,
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "--color=rgb(255, 0, 0)",
+        "h",
+        "hello world"
+      ],
+      "workdir": "{{TARGET}}",
+      "expect_stdout": "\u001b[38;2;255;0;0m _      \u001b[0m        _   _                                           _       _  \n\u001b[38;2;255;0;0m| |     \u001b[0m       | | | |                                         | |     | | \n\u001b[38;2;255;0;0m| |__   \u001b[0m  ___  | | | |   ___         __      __   ___    _ __  | |   __| | \n\u001b[38;2;255;0;0m|  _ \\  \u001b[0m / _ \\ | | | |  / _ \\        \\ \\ /\\ / /  / _ \\  | '__| | |  / _` | \n\u001b[38;2;255;0;0m| | | | \u001b[0m|  __/ | | | | | (_) |        \\ V  V /  | (_) | | |    | | | (_| | \n\u001b[38;2;255;0;0m|_| |_| \u001b[0m \\___| |_| |_|  \\___/          \\_/\\_/    \\___/  |_|    |_|  \\__,_| \n\u001b[38;2;255;0;0m        \u001b[0m                                                                   \n\u001b[38;2;255;0;0m        \u001b[0m                                                                   \n"
+    },
+    {
+      "id": "C13",
+      "description": "audit: hsl() notation",
+      "required": true,
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "--color=rgb(0, 255, 0)",
+        "hello",
+        "hello world"
+      ],
+      "workdir": "{{TARGET}}",
+      "expect_stdout": "\u001b[38;2;0;255;0m _              _   _          \u001b[0m                                 _       _  \n\u001b[38;2;0;255;0m| |            | | | |         \u001b[0m                                | |     | | \n\u001b[38;2;0;255;0m| |__     ___  | | | |   ___   \u001b[0m      __      __   ___    _ __  | |   __| | \n\u001b[38;2;0;255;0m|  _ \\   / _ \\ | | | |  / _ \\  \u001b[0m      \\ \\ /\\ / /  / _ \\  | '__| | |  / _` | \n\u001b[38;2;0;255;0m| | | | |  __/ | | | | | (_) | \u001b[0m       \\ V  V /  | (_) | | |    | | | (_| | \n\u001b[38;2;0;255;0m|_| |_|  \\___| |_| |_|  \\___/  \u001b[0m        \\_/\\_/    \\___/  |_|    |_|  \\__,_| \n\u001b[38;2;0;255;0m                               \u001b[0m                                            \n\u001b[38;2;0;255;0m                               \u001b[0m                                            \n"
+    },
+    {
+      "id": "C14",
+      "description": "audit: absent substring: plain art",
+      "required": true,
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "--color=red",
+        "zzz",
+        "hello"
+      ],
+      "workdir": "{{TARGET}}",
+      "expect_stdout": " _              _   _          \n| |            | | | |         \n| |__     ___  | | | |   ___   \n|  _ \\   / _ \\ | | | |  / _ \\  \n| | | | |  __/ | | | | | (_) | \n|_| |_|  \\___| |_| |_|  \\___/  \n                               \n                               \n"
+    },
+    {
+      "id": "C15",
+      "description": "audit: banner shadow",
+      "required": true,
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "--color=red",
+        "hello",
+        "shadow"
+      ],
+      "workdir": "{{TARGET}}",
+      "expect_stdout": "\u001b[31m                                 \u001b[0m\n\u001b[31m_|                _| _|          \u001b[0m\n\u001b[31m_|_|_|     _|_|   _| _|   _|_|   \u001b[0m\n\u001b[31m_|    _| _|_|_|_| _| _| _|    _| \u001b[0m\n\u001b[31m_|    _| _|       _| _| _|    _| \u001b[0m\n\u001b[31m_|    _|   _|_|_| _| _|   _|_|   \u001b[0m\n\u001b[31m                                 \u001b[0m\n\u001b[31m                                 \u001b[0m\n"
+    },
+    {
+      "id": "C16",
+      "description": "audit: banner thinkertoy",
+      "required": true,
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "--color=green",
+        "1 Two 4",
+        "thinkertoy"
+      ],
+      "workdir": "{{TARGET}}",
+      "expect_stdout": "\u001b[32m                                           \u001b[0m\n\u001b[32m  0         o-O-o                     o  o \u001b[0m\n\u001b[32m /|           |                       |  | \u001b[0m\n\u001b[32mo |           |   o   o   o o-o       o--O \u001b[0m\n\u001b[32m  |           |    \\ / \\ /  | |          | \u001b[0m\n\u001b[32mo-o-o         o     o   o   o-o          o \u001b[0m\n\u001b[32m                                           \u001b[0m\n\u001b[32m                                           \u001b[0m\n"
+    },
+    {
+      "id": "C17",
+      "description": "audit: color + right align",
+      "required": true,
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "--color=red",
+        "o",
+        "--align=right",
+        "hello"
+      ],
+      "workdir": "{{TARGET}}",
+      "expect_stdout": "                                                  _              _   _  \u001b[31m        \u001b[0m\n                                                 | |            | | | | \u001b[31m        \u001b[0m\n                                                 | |__     ___  | | | | \u001b[31m  ___   \u001b[0m\n                                                 |  _ \\   / _ \\ | | | | \u001b[31m / _ \\  \u001b[0m\n                                                 | | | | |  __/ | | | | \u001b[31m| (_) | \u001b[0m\n                                                 |_| |_|  \\___| |_| |_| \u001b[31m \\___/  \u001b[0m\n                                                                        \u001b[31m        \u001b[0m\n                                                                        \u001b[31m        \u001b[0m\n",
+      "env": {
+        "COLUMNS": "80"
+      }
+    },
+    {
+      "id": "C18",
+      "description": "audit: color + center align",
+      "required": true,
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "--color=blue",
+        "hell",
+        "--align=center",
+        "hello",
+        "shadow"
+      ],
+      "workdir": "{{TARGET}}",
+      "expect_stdout": "                                 \u001b[34m                        \u001b[0m         \n                                 \u001b[34m_|                _| _| \u001b[0m         \n                                 \u001b[34m_|_|_|     _|_|   _| _| \u001b[0m  _|_|   \n                                 \u001b[34m_|    _| _|_|_|_| _| _| \u001b[0m_|    _| \n                                 \u001b[34m_|    _| _|       _| _| \u001b[0m_|    _| \n                                 \u001b[34m_|    _|   _|_|_| _| _| \u001b[0m  _|_|   \n                                 \u001b[34m                        \u001b[0m         \n                                 \u001b[34m                        \u001b[0m         \n",
+      "env": {
+        "COLUMNS": "100"
+      }
+    },
+    {
+      "id": "C19",
+      "description": "audit: color + multi-word",
+      "required": true,
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "--color=yellow",
+        "e",
+        "Hello World"
+      ],
+      "workdir": "{{TARGET}}",
+      "expect_stdout": " _    _  \u001b[33m       \u001b[0m _   _                __          __                 _       _  \n| |  | | \u001b[33m       \u001b[0m| | | |               \\ \\        / /                | |     | | \n| |__| | \u001b[33m  ___  \u001b[0m| | | |   ___          \\ \\  /\\  / /    ___    _ __  | |   __| | \n|  __  | \u001b[33m / _ \\ \u001b[0m| | | |  / _ \\          \\ \\/  \\/ /    / _ \\  | '__| | |  / _` | \n| |  | | \u001b[33m|  __/ \u001b[0m| | | | | (_) |          \\  /\\  /    | (_) | | |    | | | (_| | \n|_|  |_| \u001b[33m \\___| \u001b[0m|_| |_|  \\___/            \\/  \\/      \\___/  |_|    |_|  \\__,_| \n         \u001b[33m       \u001b[0m                                                                \n         \u001b[33m       \u001b[0m                                                                \n"
+    },
+    {
+      "id": "Rlu-whole",
+      "description": "audit: random lu whole",
+      "required": true,
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "--color=cyan",
+        "KRpTBNQBDOWWy"
+      ],
+      "workdir": "{{TARGET}}",
+      "expect_stdout": "\u001b[36m _  __  _____            _______   ____    _   _    ____    ____    _____     ____   __          __ __          __         \u001b[0m\n\u001b[36m| |/ / |  __ \\          |__   __| |  _ \\  | \\ | |  / __ \\  |  _ \\  |  __ \\   / __ \\  \\ \\        / / \\ \\        / /         \u001b[0m\n\u001b[36m| ' /  | |__) |  _ __      | |    | |_) | |  \\| | | |  | | | |_) | | |  | | | |  | |  \\ \\  /\\  / /   \\ \\  /\\  / /   _   _  \u001b[0m\n\u001b[36m|  <   |  _  /  | '_ \\     | |    |  _ <  | . ` | | |  | | |  _ <  | |  | | | |  | |   \\ \\/  \\/ /     \\ \\/  \\/ /   | | | | \u001b[0m\n\u001b[36m| . \\  | | \\ \\  | |_) |    | |    | |_) | | |\\  | | |__| | | |_) | | |__| | | |__| |    \\  /\\  /       \\  /\\  /    | |_| | \u001b[0m\n\u001b[36m|_|\\_\\ |_|  \\_\\ | .__/     |_|    |____/  |_| \\_|  \\___\\_\\ |____/  |_____/   \\____/      \\/  \\/         \\/  \\/      \\__, | \u001b[0m\n\u001b[36m                | |                                                                                                 __/ /  \u001b[0m\n\u001b[36m                |_|                                                                                                |___/   \u001b[0m\n"
+    },
+    {
+      "id": "Rlu-sub",
+      "description": "audit: random lu substring",
+      "required": true,
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "--color=magenta",
+        "BN",
+        "KRpTBNQBDOWWy"
+      ],
+      "workdir": "{{TARGET}}",
+      "expect_stdout": " _  __  _____            _______  \u001b[35m ____    _   _  \u001b[0m  ____    ____    _____     ____   __          __ __          __         \n| |/ / |  __ \\          |__   __| \u001b[35m|  _ \\  | \\ | | \u001b[0m / __ \\  |  _ \\  |  __ \\   / __ \\  \\ \\        / / \\ \\        / /         \n| ' /  | |__) |  _ __      | |    \u001b[35m| |_) | |  \\| | \u001b[0m| |  | | | |_) | | |  | | | |  | |  \\ \\  /\\  / /   \\ \\  /\\  / /   _   _  \n|  <   |  _  /  | '_ \\     | |    \u001b[35m|  _ <  | . ` | \u001b[0m| |  | | |  _ <  | |  | | | |  | |   \\ \\/  \\/ /     \\ \\/  \\/ /   | | | | \n| . \\  | | \\ \\  | |_) |    | |    \u001b[35m| |_) | | |\\  | \u001b[0m| |__| | | |_) | | |__| | | |__| |    \\  /\\  /       \\  /\\  /    | |_| | \n|_|\\_\\ |_|  \\_\\ | .__/     |_|    \u001b[35m|____/  |_| \\_| \u001b[0m \\___\\_\\ |____/  |_____/   \\____/      \\/  \\/         \\/  \\/      \\__, | \n                | |               \u001b[35m                \u001b[0m                                                                  __/ /  \n                |_|               \u001b[35m                \u001b[0m                                                                 |___/   \n"
+    },
+    {
+      "id": "Rlns-whole",
+      "description": "audit: random lns whole",
+      "required": true,
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "--color=cyan",
+        "7e0myv40e7v79z8"
+      ],
+      "workdir": "{{TARGET}}",
+      "expect_stdout": "\u001b[36m                                                                                                                         \u001b[0m\n\u001b[36m _____           ___                                _  _      ___           _____           _____    ___           ___   \u001b[0m\n\u001b[36m|___  |   ___   / _ \\   _ __ ___    _   _  __   __ | || |    / _ \\    ___  |___  | __   __ |___  |  / _ \\   ____  ( _ )  \u001b[0m\n\u001b[36m   / /   / _ \\ | | | | | '_ ` _ \\  | | | | \\ \\ / / | || |_  | | | |  / _ \\    / /  \\ \\ / /    / /  | (_) | |_  /  / _ \\  \u001b[0m\n\u001b[36m  / /   |  __/ | |_| | | | | | | | | |_| |  \\ V /  |__   _| | |_| | |  __/   / /    \\ V /    / /    \\__, |  / /  | (_) | \u001b[0m\n\u001b[36m /_/     \\___|  \\___/  |_| |_| |_|  \\__, |   \\_/      |_|    \\___/   \\___|  /_/      \\_/    /_/       / /  /___|  \\___/  \u001b[0m\n\u001b[36m                                    __/ /                                                            /_/                 \u001b[0m\n\u001b[36m                                   |___/                                                                                 \u001b[0m\n"
+    },
+    {
+      "id": "Rlns-sub",
+      "description": "audit: random lns substring",
+      "required": true,
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "--color=magenta",
+        "v4",
+        "7e0myv40e7v79z8"
+      ],
+      "workdir": "{{TARGET}}",
+      "expect_stdout": "                                           \u001b[35m                 \u001b[0m                                                             \n _____           ___                       \u001b[35m         _  _    \u001b[0m  ___           _____           _____    ___           ___   \n|___  |   ___   / _ \\   _ __ ___    _   _  \u001b[35m__   __ | || |   \u001b[0m / _ \\    ___  |___  | __   __ |___  |  / _ \\   ____  ( _ )  \n   / /   / _ \\ | | | | | '_ ` _ \\  | | | | \u001b[35m\\ \\ / / | || |_  \u001b[0m| | | |  / _ \\    / /  \\ \\ / /    / /  | (_) | |_  /  / _ \\  \n  / /   |  __/ | |_| | | | | | | | | |_| | \u001b[35m \\ V /  |__   _| \u001b[0m| |_| | |  __/   / /    \\ V /    / /    \\__, |  / /  | (_) | \n /_/     \\___|  \\___/  |_| |_| |_|  \\__, | \u001b[35m  \\_/      |_|   \u001b[0m \\___/   \\___|  /_/      \\_/    /_/       / /  /___|  \\___/  \n                                    __/ /  \u001b[35m                 \u001b[0m                                         /_/                 \n                                   |___/   \u001b[35m                 \u001b[0m                                                             \n"
+    },
+    {
+      "id": "Rsp-whole",
+      "description": "audit: random sp whole",
+      "required": true,
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "--color=cyan",
+        "/#>{~+[@</++"
+      ],
+      "workdir": "{{TARGET}}",
+      "expect_stdout": "\u001b[36m     __    _  _    __       __  /\\/|          ___               __      __                 \u001b[0m\n\u001b[36m    / /  _| || |_  \\ \\     / / |/\\/     _    |  _|    ____     / /     / /    _       _    \u001b[0m\n\u001b[36m   / /  |_  __  _|  \\ \\   | |         _| |_  | |     / __ \\   / /     / /   _| |_   _| |_  \u001b[0m\n\u001b[36m  / /    _| || |_    > > / /         |_   _| | |    / / _` | < <     / /   |_   _| |_   _| \u001b[0m\n\u001b[36m / /    |_  __  _|  / /  \\ \\           |_|   | |   | | (_| |  \\ \\   / /      |_|     |_|   \u001b[0m\n\u001b[36m/_/       |_||_|   /_/    | |                | |_   \\ \\__,_|   \\_\\ /_/                     \u001b[0m\n\u001b[36m                           \\_\\               |___|   \\____/                                \u001b[0m\n\u001b[36m                                                                                           \u001b[0m\n"
+    },
+    {
+      "id": "Rsp-sub",
+      "description": "audit: random sp substring",
+      "required": true,
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "--color=magenta",
+        "~+",
+        "/#>{~+[@</++"
+      ],
+      "workdir": "{{TARGET}}",
+      "expect_stdout": "     __    _  _    __       __ \u001b[35m /\\/|         \u001b[0m ___               __      __                 \n    / /  _| || |_  \\ \\     / / \u001b[35m|/\\/     _    \u001b[0m|  _|    ____     / /     / /    _       _    \n   / /  |_  __  _|  \\ \\   | |  \u001b[35m       _| |_  \u001b[0m| |     / __ \\   / /     / /   _| |_   _| |_  \n  / /    _| || |_    > > / /   \u001b[35m      |_   _| \u001b[0m| |    / / _` | < <     / /   |_   _| |_   _| \n / /    |_  __  _|  / /  \\ \\   \u001b[35m        |_|   \u001b[0m| |   | | (_| |  \\ \\   / /      |_|     |_|   \n/_/       |_||_|   /_/    | |  \u001b[35m              \u001b[0m| |_   \\ \\__,_|   \\_\\ /_/                     \n                           \\_\\ \u001b[35m              \u001b[0m|___|   \\____/                                \n                               \u001b[35m              \u001b[0m                                              \n"
+    },
+    {
+      "id": "Rmix-whole",
+      "description": "audit: random mix whole",
+      "required": true,
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "--color=cyan",
+        "7e2YsN"
+      ],
+      "workdir": "{{TARGET}}",
+      "expect_stdout": "\u001b[36m                       __     __        _   _  \u001b[0m\n\u001b[36m _____          ____   \\ \\   / /       | \\ | | \u001b[0m\n\u001b[36m|___  |   ___  |___ \\   \\ \\_/ /   ___  |  \\| | \u001b[0m\n\u001b[36m   / /   / _ \\   __) |   \\   /   / __| | . ` | \u001b[0m\n\u001b[36m  / /   |  __/  / __/     | |    \\__ \\ | |\\  | \u001b[0m\n\u001b[36m /_/     \\___| |_____|    |_|    |___/ |_| \\_| \u001b[0m\n\u001b[36m                                               \u001b[0m\n\u001b[36m                                               \u001b[0m\n"
+    },
+    {
+      "id": "Rmix-sub",
+      "description": "audit: random mix substring",
+      "required": true,
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "--color=magenta",
+        "2",
+        "7e2YsN"
+      ],
+      "workdir": "{{TARGET}}",
+      "expect_stdout": "               \u001b[35m        \u001b[0m__     __        _   _  \n _____         \u001b[35m ____   \u001b[0m\\ \\   / /       | \\ | | \n|___  |   ___  \u001b[35m|___ \\  \u001b[0m \\ \\_/ /   ___  |  \\| | \n   / /   / _ \\ \u001b[35m  __) | \u001b[0m  \\   /   / __| | . ` | \n  / /   |  __/ \u001b[35m / __/  \u001b[0m   | |    \\__ \\ | |\\  | \n /_/     \\___| \u001b[35m|_____| \u001b[0m   |_|    |___/ |_| \\_| \n               \u001b[35m        \u001b[0m                        \n               \u001b[35m        \u001b[0m                        \n"
+    }
+  ]
+}

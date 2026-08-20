@@ -56,6 +56,7 @@ tester run --cases <file> --target <path> [-j N] [--strict] [--no-color]
 | `ascii-art-fs` | banners via the fs API | 15 |
 | `ascii-art-output` | `--output` file flag | 11 |
 | `ascii-art-justify` | `--align` to terminal width | 28 |
+| `ascii-art-color` | `--color` ANSI spans | 27 |
 
 ## Adding a suite
 
