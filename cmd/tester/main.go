@@ -136,6 +136,30 @@ func loadSuite(name string) (*suite.Suite, error) {
 	return suite.Parse(name, data)
 }
 
+// prepareExpectFiles substitutes {{TARGET}} and {{CASE_DIR}} in
+// expect_files keys and returns the resolved map plus a cleanup function.
+// Files the case was expected to create inside the implementation
+// directory are removed after comparison so suites leave the target
+// untouched.
+func prepareExpectFiles(c suite.Case, target, dir string) (map[string]string, func()) {
+	expect := make(map[string]string, len(c.ExpectFiles))
+	var created []string
+	for k, v := range c.ExpectFiles {
+		k = strings.ReplaceAll(k, "{{TARGET}}", target)
+		k = strings.ReplaceAll(k, "{{CASE_DIR}}", dir)
+		k = filepath.FromSlash(k)
+		if filepath.IsAbs(k) {
+			created = append(created, k)
+		}
+		expect[k] = v
+	}
+	return expect, func() {
+		for _, f := range created {
+			os.Remove(f)
+		}
+	}
+}
+
 // runSuite executes every case on a worker pool and reports in case order,
 // so output is stable regardless of how the cases finish. When live is
 // non-nil, worker activity feeds the progress line.
@@ -227,7 +251,9 @@ func executeCase(target string, c suite.Case) (bool, []runner.Diff, string, stri
 	if c.ExpectExit != nil && res.Exit != *c.ExpectExit {
 		diffs = append(diffs, runner.Diff{Where: "exit code", Got: fmt.Sprint(res.Exit), Want: fmt.Sprint(*c.ExpectExit)})
 	}
-	diffs = append(diffs, runner.CompareFiles(dir, c.ExpectFiles)...)
+	expect, cleanup := prepareExpectFiles(c, target, dir)
+	defer cleanup()
+	diffs = append(diffs, runner.CompareFiles(dir, expect)...)
 	diffs = append(diffs, runner.CompareStdout(res.Stdout, c.ExpectStdout)...)
 	if len(diffs) > 0 {
 		return false, diffs, "", res.Stderr

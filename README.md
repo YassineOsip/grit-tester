@@ -54,6 +54,7 @@ tester run --cases <file> --target <path> [-j N] [--strict] [--no-color]
 | `go-reloaded` | text editing tool | 82 |
 | `ascii-art` | ASCII-art banners | 33 |
 | `ascii-art-fs` | banners via the fs API | 15 |
+| `ascii-art-output` | `--output` file flag | 11 |
 
 ## Adding a suite
 
@@ -82,6 +83,11 @@ Placeholders: `{{TARGET}}` = the implementation path passed with `--target`;
 `{{CASE_DIR}}` = the isolated per-case temp dir where `setup` files live
 (use it to pass files to programs that must run in their own directory,
 like `go run .`).
+
+`expect_files` keys may contain `{{TARGET}}` / `{{CASE_DIR}}` to check
+files a case writes outside the case dir (e.g. an `--output` flag writing
+into the implementation). Such files are removed after the check, so
+suites never leave files behind in the target.
 
 New suites are compiled into the next release automatically (the embed
 glob picks up `*/cases.json`); to iterate without rebuilding, keep a

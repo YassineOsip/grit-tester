@@ -41,6 +41,21 @@ func TestCompareFilesMissing(t *testing.T) {
 	}
 }
 
+func TestCompareFilesAbsolutePath(t *testing.T) {
+	f := filepath.Join(t.TempDir(), "out.txt")
+	if err := os.WriteFile(f, []byte("hi\n"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	diffs := CompareFiles(t.TempDir(), map[string]string{f: "hi\n"})
+	if len(diffs) != 0 {
+		t.Errorf("absolute-path compare must pass, got %+v", diffs)
+	}
+	diffs = CompareFiles(t.TempDir(), map[string]string{f: "ho\n"})
+	if len(diffs) != 1 || diffs[0].Got != "hi\n" || diffs[0].Want != "ho\n" {
+		t.Errorf("absolute-path mismatch = %+v", diffs)
+	}
+}
+
 func TestCompareStdout(t *testing.T) {
 	want := "out\n"
 	if diffs := CompareStdout("out\n", &want); len(diffs) != 0 {

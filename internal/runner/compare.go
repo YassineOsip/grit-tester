@@ -14,12 +14,19 @@ type Diff struct {
 	Missing bool // expected file does not exist
 }
 
-// CompareFiles byte-compares every expected file against dir.
+// CompareFiles byte-compares every expected file against dir. A relative
+// path is resolved inside dir; an absolute path (after {{TARGET}} /
+// {{CASE_DIR}} substitution) is used as-is, so suites can check files a
+// case wrote into the implementation directory.
 // An empty result means a byte-exact pass.
 func CompareFiles(dir string, expect map[string]string) []Diff {
 	var diffs []Diff
 	for rel, want := range expect {
-		full := filepath.Join(dir, filepath.FromSlash(rel))
+		rel = filepath.FromSlash(rel)
+		full := rel
+		if !filepath.IsAbs(rel) {
+			full = filepath.Join(dir, rel)
+		}
 		got, err := os.ReadFile(full)
 		if err != nil {
 			diffs = append(diffs, Diff{Where: rel, Want: want, Missing: true})
