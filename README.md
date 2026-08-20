@@ -52,6 +52,7 @@ tester run --cases <file> --target <path> [-j N] [--strict] [--no-color]
 | Suite | Project | Cases |
 |---|---|---|
 | `go-reloaded` | text editing tool | 82 |
+| `ascii-art` | ASCII-art banners | 33 |
 
 ## Adding a suite
 
