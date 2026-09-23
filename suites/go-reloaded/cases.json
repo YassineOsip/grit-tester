@@ -1,0 +1,1646 @@
+{
+  "schema": 1,
+  "suite": "go-reloaded",
+  "cases": [
+    {
+      "id": "A1",
+      "description": "audit case 1: (low,3) (cap) (up,2) + punctuation",
+      "required": true,
+      "setup": {
+        "sample.txt": "If I make you BREAKFAST IN BED (low, 3) just say thank you instead of: how (cap) did you get in my house (up, 2) ?\n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "If I make you breakfast in bed just say thank you instead of: How did you get in MY HOUSE?\n"
+      }
+    },
+    {
+      "id": "A2",
+      "description": "audit case 2: (bin) and (hex) conversion",
+      "required": true,
+      "setup": {
+        "sample.txt": "I have to pack 101 (bin) outfits. Packed 1a (hex) just to be sure\n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "I have to pack 5 outfits. Packed 26 just to be sure\n"
+      }
+    },
+    {
+      "id": "A3",
+      "description": "audit case 3: punctuation only",
+      "required": true,
+      "setup": {
+        "sample.txt": "Don not be sad ,because sad backwards is das . And das not good\n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "Don not be sad, because sad backwards is das. And das not good\n"
+      }
+    },
+    {
+      "id": "A4",
+      "description": "audit case 4: (cap,2) colon quotes a->an",
+      "required": true,
+      "setup": {
+        "sample.txt": "harold wilson (cap, 2) : ' I am a optimist ,but a optimist who carries a raincoat . '\n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "Harold Wilson: 'I am an optimist, but an optimist who carries a raincoat.'\n"
+      }
+    },
+    {
+      "id": "B1",
+      "description": "README main example",
+      "required": true,
+      "setup": {
+        "sample.txt": "it (cap) was the best of times, it was the worst of times (up) , it was the age of wisdom, it was the age of foolishness (cap, 6) , it was the epoch of belief, it was the epoch of incredulity, it was the season of Light, it was the season of darkness, it was the spring of hope, IT WAS THE (low, 3) winter of despair.\n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "It was the best of times, it was the worst of TIMES, it was the age of wisdom, It Was The Age Of Foolishness, it was the epoch of belief, it was the epoch of incredulity, it was the season of Light, it was the season of darkness, it was the spring of hope, it was the winter of despair.\n"
+      }
+    },
+    {
+      "id": "B2",
+      "description": "hex and bin together",
+      "required": true,
+      "setup": {
+        "sample.txt": "Simply add 42 (hex) and 10 (bin) and you will see the result is 68.\n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "Simply add 66 and 2 and you will see the result is 68.\n"
+      }
+    },
+    {
+      "id": "B3",
+      "description": "a->an before vowel",
+      "required": true,
+      "setup": {
+        "sample.txt": "There is no greater agony than bearing a untold story inside you.\n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "There is no greater agony than bearing an untold story inside you.\n"
+      }
+    },
+    {
+      "id": "B4",
+      "description": "punctuation group ellipsis",
+      "required": true,
+      "setup": {
+        "sample.txt": "Punctuation tests are ... kinda boring ,what do you think ?\n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "Punctuation tests are... kinda boring, what do you think?\n"
+      }
+    },
+    {
+      "id": "B5",
+      "description": "single up with punctuation",
+      "required": true,
+      "setup": {
+        "sample.txt": "Ready, set, go (up) !\n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "Ready, set, GO!\n"
+      }
+    },
+    {
+      "id": "B6",
+      "description": "single low",
+      "required": true,
+      "setup": {
+        "sample.txt": "I should stop SHOUTING (low)\n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "I should stop shouting\n"
+      }
+    },
+    {
+      "id": "B7",
+      "description": "single cap",
+      "required": true,
+      "setup": {
+        "sample.txt": "Welcome to the Brooklyn bridge (cap)\n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "Welcome to the Brooklyn Bridge\n"
+      }
+    },
+    {
+      "id": "B8",
+      "description": "counted up",
+      "required": true,
+      "setup": {
+        "sample.txt": "This is so exciting (up, 2)\n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "This is SO EXCITING\n"
+      }
+    },
+    {
+      "id": "B9",
+      "description": "uppercase hex digits",
+      "required": true,
+      "setup": {
+        "sample.txt": "1E (hex) files were added\n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "30 files were added\n"
+      }
+    },
+    {
+      "id": "B10",
+      "description": "binary two",
+      "required": true,
+      "setup": {
+        "sample.txt": "It has been 10 (bin) years\n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "It has been 2 years\n"
+      }
+    },
+    {
+      "id": "B11",
+      "description": "max hex value",
+      "required": true,
+      "setup": {
+        "sample.txt": "ff (hex) is two hundred fifty five\n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "255 is two hundred fifty five\n"
+      }
+    },
+    {
+      "id": "B12",
+      "description": "binary zero",
+      "required": true,
+      "setup": {
+        "sample.txt": "there are 0 (bin) problems\n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "there are 0 problems\n"
+      }
+    },
+    {
+      "id": "B13",
+      "description": "punctuation with double marks",
+      "required": true,
+      "setup": {
+        "sample.txt": "I was sitting over there ,and then BAMM !!\n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "I was sitting over there, and then BAMM!!\n"
+      }
+    },
+    {
+      "id": "B14",
+      "description": "mixed punctuation group",
+      "required": true,
+      "setup": {
+        "sample.txt": "What !? Really\n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "What!? Really\n"
+      }
+    },
+    {
+      "id": "B15",
+      "description": "single word quotes",
+      "required": true,
+      "setup": {
+        "sample.txt": "I am exactly how they describe me: ' awesome '\n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "I am exactly how they describe me: 'awesome'\n"
+      }
+    },
+    {
+      "id": "B16",
+      "description": "multi word quotes",
+      "required": true,
+      "setup": {
+        "sample.txt": "As Elton John said: ' I am the most well-known homosexual in the world '\n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "As Elton John said: 'I am the most well-known homosexual in the world'\n"
+      }
+    },
+    {
+      "id": "B17",
+      "description": "capital A to An",
+      "required": true,
+      "setup": {
+        "sample.txt": "There it was. A amazing rock!\n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "There it was. An amazing rock!\n"
+      }
+    },
+    {
+      "id": "B18",
+      "description": "a to an before h",
+      "required": true,
+      "setup": {
+        "sample.txt": "it was a hour long wait\n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "it was an hour long wait\n"
+      }
+    },
+    {
+      "id": "B19",
+      "description": "a stays a before consonant",
+      "required": true,
+      "setup": {
+        "sample.txt": "a raincoat is useful\n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "a raincoat is useful\n"
+      }
+    },
+    {
+      "id": "B20",
+      "description": "flag with nothing before it",
+      "required": true,
+      "setup": {
+        "sample.txt": "(up, 2) hello world\n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "hello world\n"
+      }
+    },
+    {
+      "id": "B21",
+      "description": "zero count changes nothing",
+      "required": true,
+      "setup": {
+        "sample.txt": "(cap, 0) keep this\n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "keep this\n"
+      }
+    },
+    {
+      "id": "B22",
+      "description": "count larger than available words",
+      "required": true,
+      "setup": {
+        "sample.txt": "one (up, 5)\n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "ONE\n"
+      }
+    },
+    {
+      "id": "B23",
+      "description": "unknown flag word stays untouched",
+      "required": true,
+      "setup": {
+        "sample.txt": "keep (wat) here\n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "keep (wat) here\n"
+      }
+    },
+    {
+      "id": "B24",
+      "description": "trailing newline preserved",
+      "required": true,
+      "setup": {
+        "sample.txt": "hello (up) world\n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "HELLO world\n"
+      }
+    },
+    {
+      "id": "B25",
+      "description": "no trailing newline stays absent",
+      "required": true,
+      "setup": {
+        "sample.txt": "hello (up) world"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "HELLO world"
+      }
+    },
+    {
+      "id": "B26",
+      "description": "contraction stays one word",
+      "required": true,
+      "setup": {
+        "sample.txt": "don't stop 'now'\n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "don't stop 'now'\n"
+      }
+    },
+    {
+      "id": "B27",
+      "description": "possessive plus quoted phrase",
+      "required": true,
+      "setup": {
+        "sample.txt": "the world's end ' is here '\n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "the world's end 'is here'\n"
+      }
+    },
+    {
+      "id": "B28",
+      "description": "multiple quote pairs in one line",
+      "required": true,
+      "setup": {
+        "sample.txt": " ' a ' and ' b ' \n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "'a' and 'b'\n"
+      }
+    },
+    {
+      "id": "B29",
+      "description": "internal newline collapses to space",
+      "required": true,
+      "setup": {
+        "sample.txt": "hello\nworld (up)\n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "hello WORLD\n"
+      }
+    },
+    {
+      "id": "B30",
+      "description": "tabs collapse to space",
+      "required": true,
+      "setup": {
+        "sample.txt": "tab\tseparated (low, 2)\n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "tab separated\n"
+      }
+    },
+    {
+      "id": "C1",
+      "description": "count with no space (up,2)",
+      "required": false,
+      "setup": {
+        "sample.txt": "This is so exciting (up,2)\n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "This is SO EXCITING\n"
+      }
+    },
+    {
+      "id": "C2",
+      "description": "count bigger than available words",
+      "required": false,
+      "setup": {
+        "sample.txt": "one (up, 5)\n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "ONE\n"
+      }
+    },
+    {
+      "id": "C3",
+      "description": "marker before any word",
+      "required": false,
+      "setup": {
+        "sample.txt": "(up, 2) hello world\n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "hello world\n"
+      }
+    },
+    {
+      "id": "C4",
+      "description": "zero count",
+      "required": false,
+      "setup": {
+        "sample.txt": "(cap, 0) keep this\n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "keep this\n"
+      }
+    },
+    {
+      "id": "C5",
+      "description": "negative count",
+      "required": false,
+      "setup": {
+        "sample.txt": "keep (up, -2) this\n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "keep this\n"
+      }
+    },
+    {
+      "id": "C6",
+      "description": "chained markers feed each other",
+      "required": true,
+      "setup": {
+        "sample.txt": "hello (up) world (low, 2) end\n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "hello world end\n"
+      }
+    },
+    {
+      "id": "C7",
+      "description": "markers back to back",
+      "required": false,
+      "setup": {
+        "sample.txt": "a (cap) (low) b\n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "a b\n"
+      }
+    },
+    {
+      "id": "C8",
+      "description": "marker at end of text",
+      "required": true,
+      "setup": {
+        "sample.txt": "hello (up)\n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "HELLO\n"
+      }
+    },
+    {
+      "id": "C9",
+      "description": "only a marker, nothing before",
+      "required": false,
+      "setup": {
+        "sample.txt": "(hex)"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": ""
+      }
+    },
+    {
+      "id": "C10",
+      "description": "uppercase hex digits",
+      "required": true,
+      "setup": {
+        "sample.txt": "1E (hex) files\n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "30 files\n"
+      }
+    },
+    {
+      "id": "C11",
+      "description": "lowercase hex digits",
+      "required": true,
+      "setup": {
+        "sample.txt": "1a (hex) files\n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "26 files\n"
+      }
+    },
+    {
+      "id": "C12",
+      "description": "hex max value",
+      "required": true,
+      "setup": {
+        "sample.txt": "ff (hex)\n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "255\n"
+      }
+    },
+    {
+      "id": "C13",
+      "description": "binary zero",
+      "required": true,
+      "setup": {
+        "sample.txt": "0 (bin) x\n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "0 x\n"
+      }
+    },
+    {
+      "id": "C14",
+      "description": "binary fifteen",
+      "required": true,
+      "setup": {
+        "sample.txt": "1111 (bin) x\n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "15 x\n"
+      }
+    },
+    {
+      "id": "C15",
+      "description": "counted flag across punctuation",
+      "required": true,
+      "setup": {
+        "sample.txt": "one, two (up, 2)\n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "ONE, TWO\n"
+      }
+    },
+    {
+      "id": "C16",
+      "description": "flag after a contraction",
+      "required": false,
+      "setup": {
+        "sample.txt": "don't (up)\n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "DON'T\n"
+      }
+    },
+    {
+      "id": "C17",
+      "description": "unicode word uppercased",
+      "required": false,
+      "setup": {
+        "sample.txt": "héllo (up)\n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "HÉLLO\n"
+      }
+    },
+    {
+      "id": "C18",
+      "description": "marker result feeds a-an",
+      "required": true,
+      "setup": {
+        "sample.txt": "a (cap) amazing rock\n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "An amazing rock\n"
+      }
+    },
+    {
+      "id": "C19",
+      "description": "unknown marker passes through",
+      "required": false,
+      "setup": {
+        "sample.txt": "keep (wat) here\n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "keep (wat) here\n"
+      }
+    },
+    {
+      "id": "C20",
+      "description": "spaced marker syntax (up , 2)",
+      "required": false,
+      "setup": {
+        "sample.txt": "go (up , 2) !\n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "GO!\n"
+      }
+    },
+    {
+      "id": "C21",
+      "description": "double marks separated by space",
+      "required": true,
+      "setup": {
+        "sample.txt": "BAMM ! !\n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "BAMM!!\n"
+      }
+    },
+    {
+      "id": "C22",
+      "description": "mixed group !?",
+      "required": true,
+      "setup": {
+        "sample.txt": "What !? Really\n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "What!? Really\n"
+      }
+    },
+    {
+      "id": "C23",
+      "description": "punctuation at start of text",
+      "required": false,
+      "setup": {
+        "sample.txt": ". hi\n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": ". hi\n"
+      }
+    },
+    {
+      "id": "C24",
+      "description": "punctuation at end of text",
+      "required": false,
+      "setup": {
+        "sample.txt": "hi .\n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "hi.\n"
+      }
+    },
+    {
+      "id": "C25",
+      "description": "punctuation-only input",
+      "required": false,
+      "setup": {
+        "sample.txt": "! ?\n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "!?\n"
+      }
+    },
+    {
+      "id": "C26",
+      "description": "comma glued with word after",
+      "required": true,
+      "setup": {
+        "sample.txt": "hello,world\n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "hello, world\n"
+      }
+    },
+    {
+      "id": "C27",
+      "description": "comma spaced before word",
+      "required": true,
+      "setup": {
+        "sample.txt": "there ,and\n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "there, and\n"
+      }
+    },
+    {
+      "id": "C28",
+      "description": "ellipsis with spaces",
+      "required": true,
+      "setup": {
+        "sample.txt": "wait ... what\n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "wait... what\n"
+      }
+    },
+    {
+      "id": "C29",
+      "description": "colon before word",
+      "required": true,
+      "setup": {
+        "sample.txt": "instead of: how (cap)\n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "instead of: How\n"
+      }
+    },
+    {
+      "id": "C30",
+      "description": "semicolon handling",
+      "required": true,
+      "setup": {
+        "sample.txt": "say ; now\n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "say; now\n"
+      }
+    },
+    {
+      "id": "C31",
+      "description": "contraction is not a quote",
+      "required": false,
+      "setup": {
+        "sample.txt": "don't stop 'now'\n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "don't stop 'now'\n"
+      }
+    },
+    {
+      "id": "C32",
+      "description": "possessive apostrophe",
+      "required": false,
+      "setup": {
+        "sample.txt": "the world's end\n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "the world's end\n"
+      }
+    },
+    {
+      "id": "C33",
+      "description": "several quote pairs one line",
+      "required": true,
+      "setup": {
+        "sample.txt": " ' a ' and ' b ' \n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "'a' and 'b'\n"
+      }
+    },
+    {
+      "id": "C34",
+      "description": "punctuation inside quotes",
+      "required": true,
+      "setup": {
+        "sample.txt": " ' hello ! ' \n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "'hello!'\n"
+      }
+    },
+    {
+      "id": "C35",
+      "description": "multi word quotes",
+      "required": true,
+      "setup": {
+        "sample.txt": " ' I am here ' \n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "'I am here'\n"
+      }
+    },
+    {
+      "id": "C36",
+      "description": "unmatched opening quote",
+      "required": false,
+      "setup": {
+        "sample.txt": "say ' hello\n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "say 'hello\n"
+      }
+    },
+    {
+      "id": "C37",
+      "description": "quote directly after colon",
+      "required": true,
+      "setup": {
+        "sample.txt": "said: ' hi '\n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "said: 'hi'\n"
+      }
+    },
+    {
+      "id": "C38",
+      "description": "capital A before vowel",
+      "required": true,
+      "setup": {
+        "sample.txt": "A amazing rock\n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "An amazing rock\n"
+      }
+    },
+    {
+      "id": "C39",
+      "description": "a before h",
+      "required": true,
+      "setup": {
+        "sample.txt": "a hour\n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "an hour\n"
+      }
+    },
+    {
+      "id": "C40",
+      "description": "a before consonant stays",
+      "required": true,
+      "setup": {
+        "sample.txt": "a raincoat\n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "a raincoat\n"
+      }
+    },
+    {
+      "id": "C41",
+      "description": "capital A before h",
+      "required": true,
+      "setup": {
+        "sample.txt": "A historic day\n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "An historic day\n"
+      }
+    },
+    {
+      "id": "C42",
+      "description": "a at end of text untouched",
+      "required": false,
+      "setup": {
+        "sample.txt": "this is a\n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "this is a\n"
+      }
+    },
+    {
+      "id": "C43",
+      "description": "multiple spaces collapse",
+      "required": false,
+      "setup": {
+        "sample.txt": "hello    world (up)\n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "hello WORLD\n"
+      }
+    },
+    {
+      "id": "C44",
+      "description": "tabs collapse",
+      "required": false,
+      "setup": {
+        "sample.txt": "tab\tseparated (low, 2)\n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "tab separated\n"
+      }
+    },
+    {
+      "id": "C45",
+      "description": "internal newline collapses",
+      "required": false,
+      "setup": {
+        "sample.txt": "hello\nworld (up)\n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "hello WORLD\n"
+      }
+    },
+    {
+      "id": "C46",
+      "description": "trailing newline preserved",
+      "required": false,
+      "setup": {
+        "sample.txt": "hello (up)\n"
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": "HELLO\n"
+      }
+    },
+    {
+      "id": "C47",
+      "description": "empty input",
+      "required": false,
+      "setup": {
+        "sample.txt": ""
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": ""
+      }
+    },
+    {
+      "id": "C48",
+      "description": "spaces only",
+      "required": false,
+      "setup": {
+        "sample.txt": "   "
+      },
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "{{CASE_DIR}}/sample.txt",
+        "{{CASE_DIR}}/result.txt"
+      ],
+      "workdir": "{{TARGET}}",
+      "timeout_sec": 60,
+      "expect_files": {
+        "result.txt": ""
+      }
+    }
+  ]
+}

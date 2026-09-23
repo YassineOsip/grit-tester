@@ -1,0 +1,489 @@
+{
+  "schema": 1,
+  "suite": "ascii-art-justify",
+  "cases": [
+    {
+      "id": "J1",
+      "description": "audit: --align=right left standard (COLUMNS=63)",
+      "required": true,
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "--align=right",
+        "left"
+      ],
+      "workdir": "{{TARGET}}",
+      "env": {
+        "COLUMNS": "63"
+      },
+      "expect_stdout": "                                         _           __   _    \n                                        | |         / _| | |   \n                                        | |   ___  | |_  | |_  \n                                        | |  / _ \\ |  _| | __| \n                                        | | |  __/ | |   \\ |_  \n                                        |_|  \\___| |_|    \\__| \n                                                               \n                                                               \n"
+    },
+    {
+      "id": "J2",
+      "description": "audit: --align=left right standard (COLUMNS=73)",
+      "required": true,
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "--align=left",
+        "right"
+      ],
+      "workdir": "{{TARGET}}",
+      "env": {
+        "COLUMNS": "73"
+      },
+      "expect_stdout": "        _           _       _    \n       (_)         | |     | |   \n _ __   _    __ _  | |__   | |_  \n| '__| | |  / _` | |  _ \\  | __| \n| |    | | | (_| | | | | | \\ |_  \n|_|    |_|  \\__, | |_| |_|  \\__| \n             __/ |               \n            |___/                \n"
+    },
+    {
+      "id": "J3",
+      "description": "audit: --align=center hello shadow (COLUMNS=73)",
+      "required": true,
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "--align=center",
+        "hello",
+        "shadow"
+      ],
+      "workdir": "{{TARGET}}",
+      "env": {
+        "COLUMNS": "73"
+      },
+      "expect_stdout": "                                                     \n                    _|                _| _|          \n                    _|_|_|     _|_|   _| _|   _|_|   \n                    _|    _| _|_|_|_| _| _| _|    _| \n                    _|    _| _|       _| _| _|    _| \n                    _|    _|   _|_|_| _| _|   _|_|   \n                                                     \n                                                     \n"
+    },
+    {
+      "id": "J4",
+      "description": "audit: --align=justify 1 Two 4 shadow (COLUMNS=105)",
+      "required": true,
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "--align=justify",
+        "1 Two 4",
+        "shadow"
+      ],
+      "workdir": "{{TARGET}}",
+      "env": {
+        "COLUMNS": "105"
+      },
+      "expect_stdout": "                                                                                                         \n  _|                           _|_|_|_|_|                                                       _|  _|   \n_|_|                               _|     _|      _|      _|   _|_|                             _|  _|   \n  _|                               _|     _|      _|      _| _|    _|                           _|_|_|_| \n  _|                               _|       _|  _|  _|  _|   _|    _|                               _|   \n  _|                               _|         _|      _|       _|_|                                 _|   \n                                                                                                         \n                                                                                                         \n"
+    },
+    {
+      "id": "J5",
+      "description": "audit: --align=right 23/32 standard (COLUMNS=80)",
+      "required": true,
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "--align=right",
+        "23/32"
+      ],
+      "workdir": "{{TARGET}}",
+      "env": {
+        "COLUMNS": "80"
+      },
+      "expect_stdout": "                                                             __                 \n                                         ____    _____      / /  _____   ____   \n                                        |___ \\  |___ /     / /  |___ /  |___ \\  \n                                          __) |   |_ \\    / /     |_ \\    __) | \n                                         / __/   ___) |  / /     ___) |  / __/  \n                                        |_____| |____/  /_/     |____/  |_____| \n                                                                                \n                                                                                \n"
+    },
+    {
+      "id": "J6",
+      "description": "audit: --align=right ABCabc123 thinkertoy (COLUMNS=89)",
+      "required": true,
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "--align=right",
+        "ABCabc123",
+        "thinkertoy"
+      ],
+      "workdir": "{{TARGET}}",
+      "env": {
+        "COLUMNS": "89"
+      },
+      "expect_stdout": "                                                                                         \n                                          O   o--o    o-o      o           0    --  o-o  \n                                         / \\  |   |  /         |          /|   o  o    | \n                                        o---o O--o  O      oo  O-o   o-o o |     /   oo  \n                                        |   | |   |  \\    | |  |  | |      |    /      | \n                                        o   o o--o    o-o o-o- o-o   o-o o-o-o o--o o-o  \n                                                                                         \n                                                                                         \n"
+    },
+    {
+      "id": "J7",
+      "description": "audit: --align=center #$%&\" thinkertoy (COLUMNS=69)",
+      "required": true,
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "--align=center",
+        "#$%&\"",
+        "thinkertoy"
+      ],
+      "workdir": "{{TARGET}}",
+      "env": {
+        "COLUMNS": "69"
+      },
+      "expect_stdout": "                            | |              o o \n                     | |   -O-O-      O      | | \n                    -O-O- o | |   o  /    o      \n                     | |   -O-O-    /    /|      \n                    -O-O-   | | o  /  o o-O-     \n                     | |   -O-O-  O       |      \n                            | |                  \n                                                 \n"
+    },
+    {
+      "id": "J8",
+      "description": "audit: --align=left 23Hello World! standard (COLUMNS=140)",
+      "required": true,
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "--align=left",
+        "23Hello World!"
+      ],
+      "workdir": "{{TARGET}}",
+      "env": {
+        "COLUMNS": "140"
+      },
+      "expect_stdout": "                 _    _          _   _                __          __                 _       _   _  \n ____    _____  | |  | |        | | | |               \\ \\        / /                | |     | | | | \n|___ \\  |___ /  | |__| |   ___  | | | |   ___          \\ \\  /\\  / /    ___    _ __  | |   __| | | | \n  __) |   |_ \\  |  __  |  / _ \\ | | | |  / _ \\          \\ \\/  \\/ /    / _ \\  | '__| | |  / _` | | | \n / __/   ___) | | |  | | |  __/ | | | | | (_) |          \\  /\\  /    | (_) | | |    | | | (_| | |_| \n|_____| |____/  |_|  |_|  \\___| |_| |_|  \\___/            \\/  \\/      \\___/  |_|    |_|  \\__,_| (_) \n                                                                                                    \n                                                                                                    \n"
+    },
+    {
+      "id": "J9",
+      "description": "audit: --align=justify HELLO there HOW are YOU?! thinkertoy (COLUMNS=173)",
+      "required": true,
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "--align=justify",
+        "HELLO there HOW are YOU?!",
+        "thinkertoy"
+      ],
+      "workdir": "{{TARGET}}",
+      "env": {
+        "COLUMNS": "173"
+      },
+      "expect_stdout": "                                                                                                                                                                             \no  o o--o o     o      o-o                   o  o                                o  o  o-o  o       o                                              o   o  o-o  o   o  o-o  o \n|  | |    |     |     o   o                  |  |                                |  | o   o |       |                                               \\ /  o   o |   | o   o | \nO--O O-o  |     |     |   |                 -o- O--o o-o o-o o-o                 O--O |   | o   o   o                  oo  o-o o-o                   O   |   | |   |    /  o \n|  | |    |     |     o   o                  |  |  | |-' |   |-'                 |  | o   o  \\ / \\ /                  | |  |   |-'                   |   o   o |   |   o     \no  o o--o O---o O---o  o-o                   o  o  o o-o o   o-o                 o  o  o-o    o   o                   o-o- o   o-o                   o    o-o   o-o        O \n                                                                                                                                                                       O     \n                                                                                                                                                                             \n"
+    },
+    {
+      "id": "J10",
+      "description": "audit: --align=right a -> A b -> B c -> C shadow (COLUMNS=196)",
+      "required": true,
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "--align=right",
+        "a -> A b -> B c -> C",
+        "shadow"
+      ],
+      "workdir": "{{TARGET}}",
+      "env": {
+        "COLUMNS": "196"
+      },
+      "expect_stdout": "                                                                                                                                                                                                    \n                                                                  _|             _|_|         _|                        _|           _|_|_|                                   _|             _|_|_| \n                                          _|_|_|                    _|         _|    _|       _|_|_|                      _|         _|    _|         _|_|_|                    _|         _|       \n                                        _|    _|       _|_|_|_|_|     _|       _|_|_|_|       _|    _|       _|_|_|_|_|     _|       _|_|_|         _|             _|_|_|_|_|     _|       _|       \n                                        _|    _|                    _|         _|    _|       _|    _|                    _|         _|    _|       _|                          _|         _|       \n                                          _|_|_|                  _|           _|    _|       _|_|_|                    _|           _|_|_|           _|_|_|                  _|             _|_|_| \n                                                                                                                                                                                                    \n                                                                                                                                                                                                    \n"
+    },
+    {
+      "id": "J11",
+      "description": "audit: --align=right abcd shadow (COLUMNS=60)",
+      "required": true,
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "--align=right",
+        "abcd",
+        "shadow"
+      ],
+      "workdir": "{{TARGET}}",
+      "env": {
+        "COLUMNS": "60"
+      },
+      "expect_stdout": "                                                            \n                                 _|                      _| \n                          _|_|_| _|_|_|     _|_|_|   _|_|_| \n                        _|    _| _|    _| _|       _|    _| \n                        _|    _| _|    _| _|       _|    _| \n                          _|_|_| _|_|_|     _|_|_|   _|_|_| \n                                                            \n                                                            \n"
+    },
+    {
+      "id": "J12",
+      "description": "audit: --align=center ola standard (COLUMNS=60)",
+      "required": true,
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "--align=center",
+        "ola"
+      ],
+      "workdir": "{{TARGET}}",
+      "env": {
+        "COLUMNS": "60"
+      },
+      "expect_stdout": "                             _          \n                            | |         \n                      ___   | |   __ _  \n                     / _ \\  | |  / _` | \n                    | (_) | | | | (_| | \n                     \\___/  |_|  \\__,_| \n                                        \n                                        \n"
+    },
+    {
+      "id": "Rlu-left",
+      "description": "audit: --align=left FKRpTBNQBDOWWyKHeAVY standard (COLUMNS=227)",
+      "required": true,
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "--align=left",
+        "FKRpTBNQBDOWWyKHeAVY"
+      ],
+      "workdir": "{{TARGET}}",
+      "env": {
+        "COLUMNS": "227"
+      },
+      "expect_stdout": " ______   _  __  _____            _______   ____    _   _    ____    ____    _____     ____   __          __ __          __          _  __  _    _                    __      __ __     __ \n|  ____| | |/ / |  __ \\          |__   __| |  _ \\  | \\ | |  / __ \\  |  _ \\  |  __ \\   / __ \\  \\ \\        / / \\ \\        / /         | |/ / | |  | |            /\\     \\ \\    / / \\ \\   / / \n| |__    | ' /  | |__) |  _ __      | |    | |_) | |  \\| | | |  | | | |_) | | |  | | | |  | |  \\ \\  /\\  / /   \\ \\  /\\  / /   _   _  | ' /  | |__| |   ___     /  \\     \\ \\  / /   \\ \\_/ /  \n|  __|   |  <   |  _  /  | '_ \\     | |    |  _ <  | . ` | | |  | | |  _ <  | |  | | | |  | |   \\ \\/  \\/ /     \\ \\/  \\/ /   | | | | |  <   |  __  |  / _ \\   / /\\ \\     \\ \\/ /     \\   /   \n| |      | . \\  | | \\ \\  | |_) |    | |    | |_) | | |\\  | | |__| | | |_) | | |__| | | |__| |    \\  /\\  /       \\  /\\  /    | |_| | | . \\  | |  | | |  __/  / ____ \\     \\  /       | |    \n|_|      |_|\\_\\ |_|  \\_\\ | .__/     |_|    |____/  |_| \\_|  \\___\\_\\ |____/  |_____/   \\____/      \\/  \\/         \\/  \\/      \\__, | |_|\\_\\ |_|  |_|  \\___| /_/    \\_\\     \\/        |_|    \n                         | |                                                                                                 __/ /                                                         \n                         |_|                                                                                                |___/                                                          \n"
+    },
+    {
+      "id": "Rlu-right",
+      "description": "audit: --align=right TQmyLvEAUeMHLvYH standard (COLUMNS=186)",
+      "required": true,
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "--align=right",
+        "TQmyLvEAUeMHLvYH"
+      ],
+      "workdir": "{{TARGET}}",
+      "env": {
+        "COLUMNS": "186"
+      },
+      "expect_stdout": "                                         _______    ____                        _                ______              _    _          __  __   _    _   _               __     __  _    _  \n                                        |__   __|  / __ \\                      | |              |  ____|     /\\     | |  | |        |  \\/  | | |  | | | |              \\ \\   / / | |  | | \n                                           | |    | |  | |  _ __ ___    _   _  | |      __   __ | |__       /  \\    | |  | |   ___  | \\  / | | |__| | | |      __   __  \\ \\_/ /  | |__| | \n                                           | |    | |  | | | '_ ` _ \\  | | | | | |      \\ \\ / / |  __|     / /\\ \\   | |  | |  / _ \\ | |\\/| | |  __  | | |      \\ \\ / /   \\   /   |  __  | \n                                           | |    | |__| | | | | | | | | |_| | | |____   \\ V /  | |____   / ____ \\  | |__| | |  __/ | |  | | | |  | | | |____   \\ V /     | |    | |  | | \n                                           |_|     \\___\\_\\ |_| |_| |_|  \\__, | |______|   \\_/   |______| /_/    \\_\\  \\____/   \\___| |_|  |_| |_|  |_| |______|   \\_/      |_|    |_|  |_| \n                                                                        __/ /                                                                                                             \n                                                                       |___/                                                                                                              \n"
+    },
+    {
+      "id": "Rlu-center",
+      "description": "audit: --align=center zIBAcLtRPHBtsd standard (COLUMNS=150)",
+      "required": true,
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "--align=center",
+        "zIBAcLtRPHBtsd"
+      ],
+      "workdir": "{{TARGET}}",
+      "env": {
+        "COLUMNS": "150"
+      },
+      "expect_stdout": "                           _____   ____                      _        _     _____    _____    _    _   ____    _               _  \n                          |_   _| |  _ \\      /\\            | |      | |   |  __ \\  |  __ \\  | |  | | |  _ \\  | |             | | \n                     ____   | |   | |_) |    /  \\      ___  | |      | |_  | |__) | | |__) | | |__| | | |_) | | |_   ___    __| | \n                    |_  /   | |   |  _ <    / /\\ \\    / __| | |      | __| |  _  /  |  ___/  |  __  | |  _ <  | __| / __|  / _` | \n                     / /   _| |_  | |_) |  / ____ \\  | (__  | |____  \\ |_  | | \\ \\  | |      | |  | | | |_) | \\ |_  \\__ \\ | (_| | \n                    /___| |_____| |____/  /_/    \\_\\  \\___| |______|  \\__| |_|  \\_\\ |_|      |_|  |_| |____/   \\__| |___/  \\__,_| \n                                                                                                                                  \n                                                                                                                                  \n"
+    },
+    {
+      "id": "Rlu-justify",
+      "description": "audit: --align=justify eYsNVRdurBlnlsjbsXsL standard (COLUMNS=187)",
+      "required": true,
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "--align=justify",
+        "eYsNVRdurBlnlsjbsXsL"
+      ],
+      "workdir": "{{TARGET}}",
+      "env": {
+        "COLUMNS": "187"
+      },
+      "expect_stdout": "       __     __        _   _  __      __  _____        _                  ____    _           _           _   _            __   __        _       \n       \\ \\   / /       | \\ | | \\ \\    / / |  __ \\      | |                |  _ \\  | |         | |         (_) | |           \\ \\ / /       | |      \n  ___   \\ \\_/ /   ___  |  \\| |  \\ \\  / /  | |__) |   __| |  _   _   _ __  | |_) | | |  _ __   | |  ___     _  | |__    ___   \\ V /   ___  | |      \n / _ \\   \\   /   / __| | . ` |   \\ \\/ /   |  _  /   / _` | | | | | | '__| |  _ <  | | | '_ \\  | | / __|   | | | '_ \\  / __|   > <   / __| | |      \n|  __/    | |    \\__ \\ | |\\  |    \\  /    | | \\ \\  | (_| | | |_| | | |    | |_) | | | | | | | | | \\__ \\   | | | |_) | \\__ \\  / . \\  \\__ \\ | |____  \n \\___|    |_|    |___/ |_| \\_|     \\/     |_|  \\_\\  \\__,_|  \\__,_| |_|    |____/  |_| |_| |_| |_| |___/   | | |_.__/  |___/ /_/ \\_\\ |___/ |______| \n                                                                                                         _/ |                                      \n                                                                                                        |__/                                       \n"
+    },
+    {
+      "id": "Rlns-left",
+      "description": "audit: --align=left 0hyuafdzc standard (COLUMNS=107)",
+      "required": true,
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "--align=left",
+        "0hyuafdzc"
+      ],
+      "workdir": "{{TARGET}}",
+      "env": {
+        "COLUMNS": "107"
+      },
+      "expect_stdout": "         _                                __       _               \n  ___   | |                              / _|     | |              \n / _ \\  | |__    _   _   _   _    __ _  | |_    __| |  ____   ___  \n| | | | |  _ \\  | | | | | | | |  / _` | |  _|  / _` | |_  /  / __| \n| |_| | | | | | | |_| | | |_| | | (_| | | |   | (_| |  / /  | (__  \n \\___/  |_| |_|  \\__, |  \\__,_|  \\__,_| |_|    \\__,_| /___|  \\___| \n                 __/ /                                             \n                |___/                                              \n"
+    },
+    {
+      "id": "Rlns-right",
+      "description": "audit: --align=right a6b29tm8g75cx standard (COLUMNS=144)",
+      "required": true,
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "--align=right",
+        "a6b29tm8g75cx"
+      ],
+      "workdir": "{{TARGET}}",
+      "env": {
+        "COLUMNS": "144"
+      },
+      "expect_stdout": "                                                         _                       _                                                              \n                                                  __    | |      ____     ___   | |                 ___            _____   ____                 \n                                          __ _   / /    | |__   |___ \\   / _ \\  | |_   _ __ ___    ( _ )    __ _  |___  | | ___|    ___  __  __ \n                                         / _` | | '_ \\  | '_ \\    __) | | (_) | | __| | '_ ` _ \\   / _ \\   / _` |    / /  |___ \\   / __| \\ \\/ / \n                                        | (_| | | (_) | | |_) |  / __/   \\__, | \\ |_  | | | | | | | (_) | | (_| |   / /     __) | | (__   >  <  \n                                         \\__,_|  \\___/  |_.__/  |_____|    / /   \\__| |_| |_| |_|  \\___/   \\__, |  /_/    |____/   \\___| /_/\\_\\ \n                                                                          /_/                               __/ |                               \n                                                                                                           |___/                                \n"
+    },
+    {
+      "id": "Rlns-center",
+      "description": "audit: --align=center 9j04q1762ca9qvb0 standard (COLUMNS=162)",
+      "required": true,
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "--align=center",
+        "9j04q1762ca9qvb0"
+      ],
+      "workdir": "{{TARGET}}",
+      "env": {
+        "COLUMNS": "162"
+      },
+      "expect_stdout": "                               _                                                                                               _              \n                      ___     (_)   ___    _  _             _   _____    __     ____                    ___                   | |       ___   \n                     / _ \\     _   / _ \\  | || |     __ _  / | |___  |  / /    |___ \\    ___    __ _   / _ \\    __ _  __   __ | |__    / _ \\  \n                    | (_) |   | | | | | | | || |_   / _` | | |    / /  | '_ \\    __) |  / __|  / _` | | (_) |  / _` | \\ \\ / / | '_ \\  | | | | \n                     \\__, |   | | | |_| | |__   _| | (_| | | |   / /   | (_) |  / __/  | (__  | (_| |  \\__, | | (_| |  \\ V /  | |_) | | |_| | \n                       / /    | |  \\___/     |_|    \\__, | |_|  /_/     \\___/  |_____|  \\___|  \\__,_|    / /   \\__, |   \\_/   |_.__/   \\___/  \n                      /_/    _/ |                      | |                                              /_/       | |                         \n                            |__/                       |_|                                                        |_|                         \n"
+    },
+    {
+      "id": "Rlns-justify",
+      "description": "audit: --align=justify 5ql2nkzle1cilserv standard (COLUMNS=147)",
+      "required": true,
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "--align=justify",
+        "5ql2nkzle1cilserv"
+      ],
+      "workdir": "{{TARGET}}",
+      "env": {
+        "COLUMNS": "147"
+      },
+      "expect_stdout": "                 _                                _                     _   _                              \n ____           | |  ____            _           | |         _         (_) | |                             \n| ___|    __ _  | | |___ \\   _ __   | | _   ____ | |   ___  / |   ___   _  | |  ___    ___   _ __  __   __ \n|___ \\   / _` | | |   __) | | '_ \\  | |/ / |_  / | |  / _ \\ | |  / __| | | | | / __|  / _ \\ | '__| \\ \\ / / \n  __) | | (_| | | |  / __/  | | | | |   <   / /  | | |  __/ | | | (__  | | | | \\__ \\ |  __/ | |     \\ V /  \n|____/   \\__, | |_| |_____| |_| |_| |_|\\_\\ /___| |_|  \\___| |_|  \\___| |_| |_| |___/  \\___| |_|      \\_/   \n            | |                                                                                            \n            |_|                                                                                            \n"
+    },
+    {
+      "id": "Rsp-left",
+      "description": "audit: --align=left ^[:#.: standard (COLUMNS=74)",
+      "required": true,
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "--align=left",
+        "^[:#.:"
+      ],
+      "workdir": "{{TARGET}}",
+      "env": {
+        "COLUMNS": "74"
+      },
+      "expect_stdout": " /\\   ___         _  _            \n|/\\| |  _|  _   _| || |_       _  \n     | |   (_) |_  __  _|     (_) \n     | |        _| || |_          \n     | |    _  |_  __  _|  _   _  \n     | |_  (_)   |_||_|   (_) (_) \n     |___|                        \n                                  \n"
+    },
+    {
+      "id": "Rsp-right",
+      "description": "audit: --align=right /[&'#~/(.@.?~}?_-)}! standard (COLUMNS=174)",
+      "required": true,
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "--align=right",
+        "/[&'#~/(.@.?~}?_-)}!"
+      ],
+      "workdir": "{{TARGET}}",
+      "env": {
+        "COLUMNS": "174"
+      },
+      "expect_stdout": "                                             __  ___            _     _  _     /\\/|      __   __                    ___    /\\/| __     ___                     __   __     _  \n                                            / / |  _|   ___    ( )  _| || |_  |/\\/      / /  / /        ____       |__ \\  |/\\/  \\ \\   |__ \\                    \\ \\  \\ \\   | | \n                                           / /  | |    ( _ )   |/  |_  __  _|          / /  | |        / __ \\         ) |        | |     ) |           ______   | |  | |  | | \n                                          / /   | |    / _ \\/\\      _| || |_          / /   | |       / / _` |       / /          \\ \\   / /           |______|  | |   \\ \\ | | \n                                         / /    | |   | (_>  <     |_  __  _|        / /    | |   _  | | (_| |  _   |_|           / /  |_|                      | |   / / |_| \n                                        /_/     | |_   \\___/\\/       |_||_|         /_/     | |  (_)  \\ \\__,_| (_)  (_)          | |   (_)                      | |  | |  (_) \n                                                |___|                                        \\_\\       \\____/                   /_/           ______           /_/  /_/       \n                                                                                                                                             |______|                         \n"
+    },
+    {
+      "id": "Rsp-center",
+      "description": "audit: --align=center <(,^_];)/,:%^~ standard (COLUMNS=119)",
+      "required": true,
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "--align=center",
+        "<(,^_];)/,:%^~"
+      ],
+      "workdir": "{{TARGET}}",
+      "env": {
+        "COLUMNS": "119"
+      },
+      "expect_stdout": "                       __   __      /\\            ___      __        __          _   __  /\\   /\\/| \n                      / /  / /     |/\\|          |_  |  _  \\ \\      / /      _  (_) / / |/\\| |/\\/  \n                     / /  | |                      | | (_)  | |    / /      (_)    / /             \n                    < <   | |                      | |      | |   / /             / /              \n                     \\ \\  | |   _                  | |  _   | |  / /     _   _   / / _             \n                      \\_\\ | |  ( )                _| | ( )  | | /_/     ( ) (_) /_/ (_)            \n                           \\_\\ |/        ______  |___| |/  /_/          |/                         \n                                        |______|                                                   \n"
+    },
+    {
+      "id": "Rsp-justify",
+      "description": "audit: --align=justify >^~-#({{ %+$~--[}^ standard (COLUMNS=163)",
+      "required": true,
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "--align=justify",
+        ">^~-#({{ %+$~--[}^"
+      ],
+      "workdir": "{{TARGET}}",
+      "env": {
+        "COLUMNS": "163"
+      },
+      "expect_stdout": "__     /\\   /\\/|             _  _      __    __    __                                                _   __           _    /\\/|                    ___  __     /\\  \n\\ \\   |/\\| |/\\/            _| || |_   / /   / /   / /                                               (_) / /    _     | |  |/\\/                    |  _| \\ \\   |/\\| \n \\ \\              ______  |_  __  _| | |   | |   | |                                                   / /   _| |_  / __)        ______   ______  | |    | |       \n  > >            |______|  _| || |_  | |  / /   / /                                                   / /   |_   _| \\__ \\       |______| |______| | |     \\ \\      \n / /                      |_  __  _| | |  \\ \\   \\ \\                                                  / / _    |_|   (   /                         | |     / /      \n/_/                         |_||_|   | |   | |   | |                                                /_/ (_)          |_|                          | |_   | |       \n                                      \\_\\   \\_\\   \\_\\                                                                                             |___| /_/        \n                                                                                                                                                                   \n"
+    },
+    {
+      "id": "Rmix-left",
+      "description": "audit: --align=left dR5sQ3fmRo standard (COLUMNS=123)",
+      "required": true,
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "--align=left",
+        "dR5sQ3fmRo"
+      ],
+      "workdir": "{{TARGET}}",
+      "env": {
+        "COLUMNS": "123"
+      },
+      "expect_stdout": "     _   _____                   ____             __               _____           \n    | | |  __ \\   ____          / __ \\   _____   / _|             |  __ \\          \n  __| | | |__) | | ___|   ___  | |  | | |___ /  | |_   _ __ ___   | |__) |   ___   \n / _` | |  _  /  |___ \\  / __| | |  | |   |_ \\  |  _| | '_ ` _ \\  |  _  /   / _ \\  \n| (_| | | | \\ \\    __) | \\__ \\ | |__| |  ___) | | |   | | | | | | | | \\ \\  | (_) | \n \\__,_| |_|  \\_\\ |____/  |___/  \\___\\_\\ |____/  |_|   |_| |_| |_| |_|  \\_\\  \\___/  \n                                                                                   \n                                                                                   \n"
+    },
+    {
+      "id": "Rmix-right",
+      "description": "audit: --align=right fKKbZFi1Yt9w2ont2NQ standard (COLUMNS=183)",
+      "required": true,
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "--align=right",
+        "fKKbZFi1Yt9w2ont2NQ"
+      ],
+      "workdir": "{{TARGET}}",
+      "env": {
+        "COLUMNS": "183"
+      },
+      "expect_stdout": "                                          __   _  __  _  __  _       ______  ______   _      __     __  _                                                _             _   _    ____   \n                                         / _| | |/ / | |/ / | |     |___  / |  ____| (_)  _  \\ \\   / / | |     ___               ____                   | |    ____   | \\ | |  / __ \\  \n                                        | |_  | ' /  | ' /  | |__      / /  | |__     _  / |  \\ \\_/ /  | |_   / _ \\  __      __ |___ \\    ___    _ __   | |_  |___ \\  |  \\| | | |  | | \n                                        |  _| |  <   |  <   | '_ \\    / /   |  __|   | | | |   \\   /   | __| | (_) | \\ \\ /\\ / /   __) |  / _ \\  | '_ \\  | __|   __) | | . ` | | |  | | \n                                        | |   | . \\  | . \\  | |_) |  / /__  | |      | | | |    | |    \\ |_   \\__, |  \\ V  V /   / __/  | (_) | | | | | \\ |_   / __/  | |\\  | | |__| | \n                                        |_|   |_|\\_\\ |_|\\_\\ |_.__/  /_____| |_|      |_| |_|    |_|     \\__|    / /    \\_/\\_/   |_____|  \\___/  |_| |_|  \\__| |_____| |_| \\_|  \\___\\_\\ \n                                                                                                               /_/                                                                     \n                                                                                                                                                                                       \n"
+    },
+    {
+      "id": "Rmix-center",
+      "description": "audit: --align=center FRIyoNllT8i standard (COLUMNS=120)",
+      "required": true,
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "--align=center",
+        "FRIyoNllT8i"
+      ],
+      "workdir": "{{TARGET}}",
+      "env": {
+        "COLUMNS": "120"
+      },
+      "expect_stdout": "                     ______   _____    _____                   _   _   _   _   _______           _  \n                    |  ____| |  __ \\  |_   _|                 | \\ | | | | | | |__   __|   ___   (_) \n                    | |__    | |__) |   | |    _   _    ___   |  \\| | | | | |    | |     ( _ )   _  \n                    |  __|   |  _  /    | |   | | | |  / _ \\  | . ` | | | | |    | |     / _ \\  | | \n                    | |      | | \\ \\   _| |_  | |_| | | (_) | | |\\  | | | | |    | |    | (_) | | | \n                    |_|      |_|  \\_\\ |_____|  \\__, |  \\___/  |_| \\_| |_| |_|    |_|     \\___/  |_| \n                                               __/ /                                                \n                                              |___/                                                 \n"
+    },
+    {
+      "id": "Rmix-justify",
+      "description": "audit: --align=justify qibfm3nTlgwkZ standard (COLUMNS=142)",
+      "required": true,
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "--align=justify",
+        "qibfm3nTlgwkZ"
+      ],
+      "workdir": "{{TARGET}}",
+      "env": {
+        "COLUMNS": "142"
+      },
+      "expect_stdout": "         _   _        __                               _______   _                             ______ \n        (_) | |      / _|              _____          |__   __| | |                     _     |___  / \n  __ _   _  | |__   | |_   _ __ ___   |___ /   _ __      | |    | |   __ _  __      __ | | _     / /  \n / _` | | | | '_ \\  |  _| | '_ ` _ \\    |_ \\  | '_ \\     | |    | |  / _` | \\ \\ /\\ / / | |/ /   / /   \n| (_| | | | | |_) | | |   | | | | | |  ___) | | | | |    | |    | | | (_| |  \\ V  V /  |   <   / /__  \n \\__, | |_| |_.__/  |_|   |_| |_| |_| |____/  |_| |_|    |_|    |_|  \\__, |   \\_/\\_/   |_|\\_\\ /_____| \n    | |                                                               __/ |                           \n    |_|                                                              |___/                            \n"
+    }
+  ]
+}

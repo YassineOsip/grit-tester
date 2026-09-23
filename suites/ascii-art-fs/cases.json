@@ -1,0 +1,215 @@
+{
+  "schema": 1,
+  "suite": "ascii-art-fs",
+  "cases": [
+    {
+      "id": "A1",
+      "description": "audit: hello standard",
+      "required": true,
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "hello",
+        "standard"
+      ],
+      "workdir": "{{TARGET}}",
+      "expect_stdout": " _              _   _          \n| |            | | | |         \n| |__     ___  | | | |   ___   \n|  _ \\   / _ \\ | | | |  / _ \\  \n| | | | |  __/ | | | | | (_) | \n|_| |_|  \\___| |_| |_|  \\___/  \n                               \n                               \n"
+    },
+    {
+      "id": "A2",
+      "description": "audit: hello world shadow",
+      "required": true,
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "hello world",
+        "shadow"
+      ],
+      "workdir": "{{TARGET}}",
+      "expect_stdout": "                                                                                        \n_|                _| _|                                                     _|       _| \n_|_|_|     _|_|   _| _|   _|_|         _|      _|      _|   _|_|   _|  _|_| _|   _|_|_| \n_|    _| _|_|_|_| _| _| _|    _|       _|      _|      _| _|    _| _|_|     _| _|    _| \n_|    _| _|       _| _| _|    _|         _|  _|  _|  _|   _|    _| _|       _| _|    _| \n_|    _|   _|_|_| _| _|   _|_|             _|      _|       _|_|   _|       _|   _|_|_| \n                                                                                        \n                                                                                        \n"
+    },
+    {
+      "id": "A3",
+      "description": "audit: nice 2 meet you thinkertoy",
+      "required": true,
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "nice 2 meet you",
+        "thinkertoy"
+      ],
+      "workdir": "{{TARGET}}",
+      "expect_stdout": "                                                                       \n                       --                       o                      \n     o                o  o                      |                      \no-o     o-o o-o         /        o-O-o o-o o-o -o-       o  o o-o o  o \n|  | | |    |-'        /         | | | |-' |-'  |        |  | | | |  | \no  o |  o-o o-o       o--o       o o o o-o o-o  o        o--O o-o o--o \n                                                            |          \n                                                         o--o          \n"
+    },
+    {
+      "id": "A4",
+      "description": "audit: you & me standard",
+      "required": true,
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "you & me",
+        "standard"
+      ],
+      "workdir": "{{TARGET}}",
+      "expect_stdout": "                                                                \n                                ___                             \n _   _    ___    _   _         ( _ )          _ __ ___     ___  \n| | | |  / _ \\  | | | |        / _ \\/\\       | '_ ` _ \\   / _ \\ \n| |_| | | (_) | | |_| |       | (_>  <       | | | | | | |  __/ \n \\__, |  \\___/   \\__,_|        \\___/\\/       |_| |_| |_|  \\___| \n __/ /                                                          \n|___/                                                           \n"
+    },
+    {
+      "id": "A5",
+      "description": "audit: 123 shadow",
+      "required": true,
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "123",
+        "shadow"
+      ],
+      "workdir": "{{TARGET}}",
+      "expect_stdout": "                       \n  _|   _|_|   _|_|_|   \n_|_| _|    _|       _| \n  _|     _|     _|_|   \n  _|   _|           _| \n  _| _|_|_|_| _|_|_|   \n                       \n                       \n"
+    },
+    {
+      "id": "A6",
+      "description": "audit: /(\") thinkertoy",
+      "required": true,
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "/(\")",
+        "thinkertoy"
+      ],
+      "workdir": "{{TARGET}}",
+      "expect_stdout": "         o o    \n    o  / | | \\  \n   /  o       o \n  o   |       | \n /    o       o \no      \\     /  \n                \n                \n"
+    },
+    {
+      "id": "A7",
+      "description": "audit: ABCDEFGHIJKLMNOPQRSTUVWXYZ shadow",
+      "required": true,
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+        "shadow"
+      ],
+      "workdir": "{{TARGET}}",
+      "expect_stdout": "                                                                                                                                                                                                                                                              \n  _|_|   _|_|_|     _|_|_| _|_|_|   _|_|_|_| _|_|_|_|   _|_|_| _|    _| _|_|_|       _| _|    _| _|       _|      _| _|      _|   _|_|   _|_|_|     _|_|     _|_|_|     _|_|_| _|_|_|_|_| _|    _| _|      _| _|          _| _|      _| _|      _| _|_|_|_|_| \n_|    _| _|    _| _|       _|    _| _|       _|       _|       _|    _|   _|         _| _|  _|   _|       _|_|  _|_| _|_|    _| _|    _| _|    _| _|    _|   _|    _| _|           _|     _|    _| _|      _| _|          _|   _|  _|     _|  _|         _|   \n_|_|_|_| _|_|_|   _|       _|    _| _|_|_|   _|_|_|   _|  _|_| _|_|_|_|   _|         _| _|_|     _|       _|  _|  _| _|  _|  _| _|    _| _|_|_|   _|  _|_|   _|_|_|     _|_|       _|     _|    _| _|      _| _|    _|    _|     _|         _|         _|     \n_|    _| _|    _| _|       _|    _| _|       _|       _|    _| _|    _|   _|   _|    _| _|  _|   _|       _|      _| _|    _|_| _|    _| _|       _|    _|   _|    _|       _|     _|     _|    _|   _|  _|     _|  _|  _|     _|  _|       _|       _|       \n_|    _| _|_|_|     _|_|_| _|_|_|   _|_|_|_| _|         _|_|_| _|    _| _|_|_|   _|_|   _|    _| _|_|_|_| _|      _| _|      _|   _|_|   _|         _|_|  _| _|    _| _|_|_|       _|       _|_|       _|         _|  _|     _|      _|     _|     _|_|_|_|_| \n                                                                                                                                                                                                                                                              \n                                                                                                                                                                                                                                                              \n"
+    },
+    {
+      "id": "A8",
+      "description": "audit: \"#$%&/()*+,-./ thinkertoy",
+      "required": true,
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "\"#$%&/()*+,-./",
+        "thinkertoy"
+      ],
+      "workdir": "{{TARGET}}",
+      "expect_stdout": "o o         | |                                                  \n| |  | |   -O-O-      O          o  / \\  o | o                 o \n    -O-O- o | |   o  /    o     /  o   o  \\|/   |             /  \n     | |   -O-O-    /    /|    o   |   | --O-- -o-           o   \n    -O-O-   | | o  /  o o-O-  /    o   o  /|\\   |    o-o    /    \n     | |   -O-O-  O       |  o      \\ /  o | o     o     O o     \n            | |                                    |             \n                                                                 \n"
+    },
+    {
+      "id": "A9",
+      "description": "audit: It's Working thinkertoy",
+      "required": true,
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "It's Working",
+        "thinkertoy"
+      ],
+      "workdir": "{{TARGET}}",
+      "expect_stdout": "          o                                              \no-O-o  o  |           o       o         o                \n  |    |              |       |         | /  o           \n  |   -o-   o-o       o   o   o o-o o-o OO     o-o  o--o \n  |    |     \\         \\ / \\ /  | | |   | \\  | |  | |  | \no-O-o  o    o-o         o   o   o-o o   o  o | o  o o--O \n                                                       | \n                                                    o--o \n"
+    },
+    {
+      "id": "C1",
+      "description": "single arg defaults to standard",
+      "required": false,
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "hello"
+      ],
+      "workdir": "{{TARGET}}",
+      "expect_stdout": " _              _   _          \n| |            | | | |         \n| |__     ___  | | | |   ___   \n|  _ \\   / _ \\ | | | |  / _ \\  \n| | | | |  __/ | | | | | (_) | \n|_| |_|  \\___| |_| |_|  \\___/  \n                               \n                               \n"
+    },
+    {
+      "id": "C2",
+      "description": "mixed case, standard",
+      "required": false,
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "aBc123 xYz!",
+        "standard"
+      ],
+      "workdir": "{{TARGET}}",
+      "expect_stdout": "         ____                                           __     __        _  \n        |  _ \\          _   ____    _____               \\ \\   / /       | | \n  __ _  | |_) |   ___  / | |___ \\  |___ /        __  __  \\ \\_/ /   ____ | | \n / _` | |  _ <   / __| | |   __) |   |_ \\        \\ \\/ /   \\   /   |_  / | | \n| (_| | | |_) | | (__  | |  / __/   ___) |        >  <     | |     / /  |_| \n \\__,_| |____/   \\___| |_| |_____| |____/        /_/\\_\\    |_|    /___| (_) \n                                                                            \n                                                                            \n"
+    },
+    {
+      "id": "C3",
+      "description": "spaces only, shadow",
+      "required": false,
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "  spaces  ",
+        "shadow"
+      ],
+      "workdir": "{{TARGET}}",
+      "expect_stdout": "                                                                              \n                                                                              \n              _|_|_| _|_|_|     _|_|_|   _|_|_|   _|_|     _|_|_|             \n            _|_|     _|    _| _|    _| _|       _|_|_|_| _|_|                 \n                _|_| _|    _| _|    _| _|       _|           _|_|             \n            _|_|_|   _|_|_|     _|_|_|   _|_|_|   _|_|_| _|_|_|               \n                     _|                                                       \n                     _|                                                       \n"
+    },
+    {
+      "id": "C4",
+      "description": "digits, thinkertoy",
+      "required": false,
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "1234567890",
+        "thinkertoy"
+      ],
+      "workdir": "{{TARGET}}",
+      "expect_stdout": "                                                        \n  0    --  o-o  o  o o--o   o   o---o  o-o   o-o   o-o  \n /|   o  o    | |  | |     /       /  |   | |   o o  /o \no |     /   oo  o--O o-o  O--o    o    o-o   o--O | / | \n  |    /      |    |    | o   |   |   |   |    /  o/  o \no-o-o o--o o-o     o o-o   o-o    o    o-o    o    o-o  \n                                                        \n                                                        \n"
+    },
+    {
+      "id": "C5",
+      "description": "newline escape, standard",
+      "required": false,
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "Hello\\nThere",
+        "standard"
+      ],
+      "workdir": "{{TARGET}}",
+      "expect_stdout": " _    _          _   _          \n| |  | |        | | | |         \n| |__| |   ___  | | | |   ___   \n|  __  |  / _ \\ | | | |  / _ \\  \n| |  | | |  __/ | | | | | (_) | \n|_|  |_|  \\___| |_| |_|  \\___/  \n                                \n                                \n _______   _                           \n|__   __| | |                          \n   | |    | |__     ___   _ __    ___  \n   | |    |  _ \\   / _ \\ | '__|  / _ \\ \n   | |    | | | | |  __/ | |    |  __/ \n   |_|    |_| |_|  \\___| |_|     \\___| \n                                       \n                                       \n"
+    },
+    {
+      "id": "C6",
+      "description": "trailing newline, shadow",
+      "required": false,
+      "command": "go",
+      "args": [
+        "run",
+        ".",
+        "Hello\\n",
+        "shadow"
+      ],
+      "workdir": "{{TARGET}}",
+      "expect_stdout": "                                 \n_|    _|          _| _|          \n_|    _|   _|_|   _| _|   _|_|   \n_|_|_|_| _|_|_|_| _| _| _|    _| \n_|    _| _|       _| _| _|    _| \n_|    _|   _|_|_| _| _|   _|_|   \n                                 \n                                 \n\n"
+    }
+  ]
+}

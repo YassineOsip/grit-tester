@@ -1,0 +1,659 @@
+ID   STATUS      DESCRIPTION
+A1   [31mFAIL      [0m  audit case 1: (low,3) (cap) (up,2) + punctuation
+                 │ input (sample.txt)[0m
+                 │   If I make you BREAKFAST IN BED (low, 3) just say thank you instead of: how (cap) did you g
+                 │   et in my house (up, 2) ?
+                 │   \n
+                 │ [31mgot (result.txt)[0m
+                 │   If I make you BREAKFAST IN BED (low, 3) just say thank you instead of: how (cap) did you g
+                 │   et in my house (up, 2) ?
+                 │   \n
+                 │ [32mwant[0m
+                 │   If I make you breakfast in bed just say thank you instead of: How did you get in MY HOUSE?
+                 │   \n
+A2   [31mFAIL      [0m  audit case 2: (bin) and (hex) conversion
+                 │ input (sample.txt)[0m
+                 │   I have to pack 101 (bin) outfits. Packed 1a (hex) just to be sure
+                 │   \n
+                 │ [31mgot (result.txt)[0m
+                 │   I have to pack 101 (bin) outfits. Packed 1a (hex) just to be sure
+                 │   \n
+                 │ [32mwant[0m
+                 │   I have to pack 5 outfits. Packed 26 just to be sure
+                 │   \n
+A3   [31mFAIL      [0m  audit case 3: punctuation only
+                 │ input (sample.txt)[0m
+                 │   Don not be sad ,because sad backwards is das . And das not good
+                 │   \n
+                 │ [31mgot (result.txt)[0m
+                 │   Don not be sad ,because sad backwards is das . And das not good
+                 │   \n
+                 │ [32mwant[0m
+                 │   Don not be sad, because sad backwards is das. And das not good
+                 │   \n
+A4   [31mFAIL      [0m  audit case 4: (cap,2) colon quotes a->an
+                 │ input (sample.txt)[0m
+                 │   harold wilson (cap, 2) : ' I am a optimist ,but a optimist who carries a raincoat . '
+                 │   \n
+                 │ [31mgot (result.txt)[0m
+                 │   harold wilson (cap, 2) : ' I am a optimist ,but a optimist who carries a raincoat . '
+                 │   \n
+                 │ [32mwant[0m
+                 │   Harold Wilson: 'I am an optimist, but an optimist who carries a raincoat.'
+                 │   \n
+B1   [31mFAIL      [0m  README main example
+                 │ input (sample.txt)[0m
+                 │   it (cap) was the best of times, it was the worst of times (up) , it was the age of wisdom,
+                 │    it was the age of foolishness (cap, 6) , it was the epoch of belief, it was the epoch of 
+                 │   incredulity, it was the season of Light, it was the season of darkness, it was the spring 
+                 │   of hope, IT WAS THE (low, 3) winter of despair.
+                 │   \n
+                 │ [31mgot (result.txt)[0m
+                 │   it (cap) was the best of times, it was the worst of TIMES , it was the age of wisdom, it w
+                 │   as the age of foolishness (cap, 6) , it was the epoch of belief, it was the epoch of incre
+                 │   dulity, it was the season of Light, it was the season of darkness, it was the spring of ho
+                 │   pe, IT WAS THE (low, 3) winter of despair.
+                 │   \n
+                 │ [32mwant[0m
+                 │   It was the best of times, it was the worst of TIMES, it was the age of wisdom, It Was The 
+                 │   Age Of Foolishness, it was the epoch of belief, it was the epoch of incredulity, it was th
+                 │   e season of Light, it was the season of darkness, it was the spring of hope, it was the wi
+                 │   nter of despair.
+                 │   \n
+B2   [31mFAIL      [0m  hex and bin together
+                 │ input (sample.txt)[0m
+                 │   Simply add 42 (hex) and 10 (bin) and you will see the result is 68.
+                 │   \n
+                 │ [31mgot (result.txt)[0m
+                 │   Simply add 42 (hex) and 10 (bin) and you will see the result is 68.
+                 │   \n
+                 │ [32mwant[0m
+                 │   Simply add 66 and 2 and you will see the result is 68.
+                 │   \n
+B3   [31mFAIL      [0m  a->an before vowel
+                 │ input (sample.txt)[0m
+                 │   There is no greater agony than bearing a untold story inside you.
+                 │   \n
+                 │ [31mgot (result.txt)[0m
+                 │   There is no greater agony than bearing a untold story inside you.
+                 │   \n
+                 │ [32mwant[0m
+                 │   There is no greater agony than bearing an untold story inside you.
+                 │   \n
+B4   [31mFAIL      [0m  punctuation group ellipsis
+                 │ input (sample.txt)[0m
+                 │   Punctuation tests are ... kinda boring ,what do you think ?
+                 │   \n
+                 │ [31mgot (result.txt)[0m
+                 │   Punctuation tests are ... kinda boring ,what do you think ?
+                 │   \n
+                 │ [32mwant[0m
+                 │   Punctuation tests are... kinda boring, what do you think?
+                 │   \n
+B5   [31mFAIL      [0m  single up with punctuation
+                 │ input (sample.txt)[0m
+                 │   Ready, set, go (up) !
+                 │   \n
+                 │ [31mgot (result.txt)[0m
+                 │   Ready, set, GO !
+                 │   \n
+                 │ [32mwant[0m
+                 │   Ready, set, GO!
+                 │   \n
+B6   [32mPASS      [0m  single low
+B7   [31mFAIL      [0m  single cap
+                 │ input (sample.txt)[0m
+                 │   Welcome to the Brooklyn bridge (cap)
+                 │   \n
+                 │ [31mgot (result.txt)[0m
+                 │   Welcome to the Brooklyn bridge (cap)
+                 │   \n
+                 │ [32mwant[0m
+                 │   Welcome to the Brooklyn Bridge
+                 │   \n
+B8   [31mFAIL      [0m  counted up
+                 │ input (sample.txt)[0m
+                 │   This is so exciting (up, 2)
+                 │   \n
+                 │ [31mgot (result.txt)[0m
+                 │   This is so exciting (up, 2)
+                 │   \n
+                 │ [32mwant[0m
+                 │   This is SO EXCITING
+                 │   \n
+B9   [31mFAIL      [0m  uppercase hex digits
+                 │ input (sample.txt)[0m
+                 │   1E (hex) files were added
+                 │   \n
+                 │ [31mgot (result.txt)[0m
+                 │   1E (hex) files were added
+                 │   \n
+                 │ [32mwant[0m
+                 │   30 files were added
+                 │   \n
+B10  [31mFAIL      [0m  binary two
+                 │ input (sample.txt)[0m
+                 │   It has been 10 (bin) years
+                 │   \n
+                 │ [31mgot (result.txt)[0m
+                 │   It has been 10 (bin) years
+                 │   \n
+                 │ [32mwant[0m
+                 │   It has been 2 years
+                 │   \n
+B11  [31mFAIL      [0m  max hex value
+                 │ input (sample.txt)[0m
+                 │   ff (hex) is two hundred fifty five
+                 │   \n
+                 │ [31mgot (result.txt)[0m
+                 │   ff (hex) is two hundred fifty five
+                 │   \n
+                 │ [32mwant[0m
+                 │   255 is two hundred fifty five
+                 │   \n
+B12  [31mFAIL      [0m  binary zero
+                 │ input (sample.txt)[0m
+                 │   there are 0 (bin) problems
+                 │   \n
+                 │ [31mgot (result.txt)[0m
+                 │   there are 0 (bin) problems
+                 │   \n
+                 │ [32mwant[0m
+                 │   there are 0 problems
+                 │   \n
+B13  [31mFAIL      [0m  punctuation with double marks
+                 │ input (sample.txt)[0m
+                 │   I was sitting over there ,and then BAMM !!
+                 │   \n
+                 │ [31mgot (result.txt)[0m
+                 │   I was sitting over there ,and then BAMM !!
+                 │   \n
+                 │ [32mwant[0m
+                 │   I was sitting over there, and then BAMM!!
+                 │   \n
+B14  [31mFAIL      [0m  mixed punctuation group
+                 │ input (sample.txt)[0m
+                 │   What !? Really
+                 │   \n
+                 │ [31mgot (result.txt)[0m
+                 │   What !? Really
+                 │   \n
+                 │ [32mwant[0m
+                 │   What!? Really
+                 │   \n
+B15  [31mFAIL      [0m  single word quotes
+                 │ input (sample.txt)[0m
+                 │   I am exactly how they describe me: ' awesome '
+                 │   \n
+                 │ [31mgot (result.txt)[0m
+                 │   I am exactly how they describe me: ' awesome '
+                 │   \n
+                 │ [32mwant[0m
+                 │   I am exactly how they describe me: 'awesome'
+                 │   \n
+B16  [31mFAIL      [0m  multi word quotes
+                 │ input (sample.txt)[0m
+                 │   As Elton John said: ' I am the most well-known homosexual in the world '
+                 │   \n
+                 │ [31mgot (result.txt)[0m
+                 │   As Elton John said: ' I am the most well-known homosexual in the world '
+                 │   \n
+                 │ [32mwant[0m
+                 │   As Elton John said: 'I am the most well-known homosexual in the world'
+                 │   \n
+B17  [31mFAIL      [0m  capital A to An
+                 │ input (sample.txt)[0m
+                 │   There it was. A amazing rock!
+                 │   \n
+                 │ [31mgot (result.txt)[0m
+                 │   There it was. A amazing rock!
+                 │   \n
+                 │ [32mwant[0m
+                 │   There it was. An amazing rock!
+                 │   \n
+B18  [31mFAIL      [0m  a to an before h
+                 │ input (sample.txt)[0m
+                 │   it was a hour long wait
+                 │   \n
+                 │ [31mgot (result.txt)[0m
+                 │   it was a hour long wait
+                 │   \n
+                 │ [32mwant[0m
+                 │   it was an hour long wait
+                 │   \n
+B19  [32mPASS      [0m  a stays a before consonant
+B20  [31mFAIL      [0m  flag with nothing before it
+                 │ input (sample.txt)[0m
+                 │   (up, 2) hello world
+                 │   \n
+                 │ [31mgot (result.txt)[0m
+                 │   (up, 2) hello world
+                 │   \n
+                 │ [32mwant[0m
+                 │   hello world
+                 │   \n
+B21  [31mFAIL      [0m  zero count changes nothing
+                 │ input (sample.txt)[0m
+                 │   (cap, 0) keep this
+                 │   \n
+                 │ [31mgot (result.txt)[0m
+                 │   (cap, 0) keep this
+                 │   \n
+                 │ [32mwant[0m
+                 │   keep this
+                 │   \n
+B22  [31mFAIL      [0m  count larger than available words
+                 │ input (sample.txt)[0m
+                 │   one (up, 5)
+                 │   \n
+                 │ [31mgot (result.txt)[0m
+                 │   one (up, 5)
+                 │   \n
+                 │ [32mwant[0m
+                 │   ONE
+                 │   \n
+B23  [32mPASS      [0m  unknown flag word stays untouched
+B24  [32mPASS      [0m  trailing newline preserved
+B25  [31mFAIL      [0m  no trailing newline stays absent
+                 │ input (sample.txt)[0m
+                 │   hello (up) world
+                 │ [31mgot (result.txt)[0m
+                 │   HELLO world
+                 │   \n
+                 │ [32mwant[0m
+                 │   HELLO world
+B26  [32mPASS      [0m  contraction stays one word
+B27  [31mFAIL      [0m  possessive plus quoted phrase
+                 │ input (sample.txt)[0m
+                 │   the world's end ' is here '
+                 │   \n
+                 │ [31mgot (result.txt)[0m
+                 │   the world's end ' is here '
+                 │   \n
+                 │ [32mwant[0m
+                 │   the world's end 'is here'
+                 │   \n
+B28  [31mFAIL      [0m  multiple quote pairs in one line
+                 │ input (sample.txt)[0m
+                 │    ' a ' and ' b ' 
+                 │   \n
+                 │ [31mgot (result.txt)[0m
+                 │   ' a ' and ' b '
+                 │   \n
+                 │ [32mwant[0m
+                 │   'a' and 'b'
+                 │   \n
+B29  [32mPASS      [0m  internal newline collapses to space
+B30  [31mFAIL      [0m  tabs collapse to space
+                 │ input (sample.txt)[0m
+                 │   tab	separated (low, 2)
+                 │   \n
+                 │ [31mgot (result.txt)[0m
+                 │   tab separated (low, 2)
+                 │   \n
+                 │ [32mwant[0m
+                 │   tab separated
+                 │   \n
+C1   [33mBONUS FAIL[0m  count with no space (up,2)
+                 │ input (sample.txt)[0m
+                 │   This is so exciting (up,2)
+                 │   \n
+                 │ [31mgot (result.txt)[0m
+                 │   This is so exciting (up,2)
+                 │   \n
+                 │ [32mwant[0m
+                 │   This is SO EXCITING
+                 │   \n
+C2   [33mBONUS FAIL[0m  count bigger than available words
+                 │ input (sample.txt)[0m
+                 │   one (up, 5)
+                 │   \n
+                 │ [31mgot (result.txt)[0m
+                 │   one (up, 5)
+                 │   \n
+                 │ [32mwant[0m
+                 │   ONE
+                 │   \n
+C3   [33mBONUS FAIL[0m  marker before any word
+                 │ input (sample.txt)[0m
+                 │   (up, 2) hello world
+                 │   \n
+                 │ [31mgot (result.txt)[0m
+                 │   (up, 2) hello world
+                 │   \n
+                 │ [32mwant[0m
+                 │   hello world
+                 │   \n
+C4   [33mBONUS FAIL[0m  zero count
+                 │ input (sample.txt)[0m
+                 │   (cap, 0) keep this
+                 │   \n
+                 │ [31mgot (result.txt)[0m
+                 │   (cap, 0) keep this
+                 │   \n
+                 │ [32mwant[0m
+                 │   keep this
+                 │   \n
+C5   [33mBONUS FAIL[0m  negative count
+                 │ input (sample.txt)[0m
+                 │   keep (up, -2) this
+                 │   \n
+                 │ [31mgot (result.txt)[0m
+                 │   keep (up, -2) this
+                 │   \n
+                 │ [32mwant[0m
+                 │   keep this
+                 │   \n
+C6   [31mFAIL      [0m  chained markers feed each other
+                 │ input (sample.txt)[0m
+                 │   hello (up) world (low, 2) end
+                 │   \n
+                 │ [31mgot (result.txt)[0m
+                 │   HELLO world (low, 2) end
+                 │   \n
+                 │ [32mwant[0m
+                 │   hello world end
+                 │   \n
+C7   [33mBONUS FAIL[0m  markers back to back
+                 │ input (sample.txt)[0m
+                 │   a (cap) (low) b
+                 │   \n
+                 │ [31mgot (result.txt)[0m
+                 │   a (cap) b
+                 │   \n
+                 │ [32mwant[0m
+                 │   a b
+                 │   \n
+C8   [32mPASS      [0m  marker at end of text
+C9   [33mBONUS FAIL[0m  only a marker, nothing before
+                 │ input (sample.txt)[0m
+                 │   (hex)
+                 │ [31mgot (result.txt)[0m
+                 │   (hex)
+                 │   \n
+                 │ [32mwant[0m
+C10  [31mFAIL      [0m  uppercase hex digits
+                 │ input (sample.txt)[0m
+                 │   1E (hex) files
+                 │   \n
+                 │ [31mgot (result.txt)[0m
+                 │   1E (hex) files
+                 │   \n
+                 │ [32mwant[0m
+                 │   30 files
+                 │   \n
+C11  [31mFAIL      [0m  lowercase hex digits
+                 │ input (sample.txt)[0m
+                 │   1a (hex) files
+                 │   \n
+                 │ [31mgot (result.txt)[0m
+                 │   1a (hex) files
+                 │   \n
+                 │ [32mwant[0m
+                 │   26 files
+                 │   \n
+C12  [31mFAIL      [0m  hex max value
+                 │ input (sample.txt)[0m
+                 │   ff (hex)
+                 │   \n
+                 │ [31mgot (result.txt)[0m
+                 │   ff (hex)
+                 │   \n
+                 │ [32mwant[0m
+                 │   255
+                 │   \n
+C13  [31mFAIL      [0m  binary zero
+                 │ input (sample.txt)[0m
+                 │   0 (bin) x
+                 │   \n
+                 │ [31mgot (result.txt)[0m
+                 │   0 (bin) x
+                 │   \n
+                 │ [32mwant[0m
+                 │   0 x
+                 │   \n
+C14  [31mFAIL      [0m  binary fifteen
+                 │ input (sample.txt)[0m
+                 │   1111 (bin) x
+                 │   \n
+                 │ [31mgot (result.txt)[0m
+                 │   1111 (bin) x
+                 │   \n
+                 │ [32mwant[0m
+                 │   15 x
+                 │   \n
+C15  [31mFAIL      [0m  counted flag across punctuation
+                 │ input (sample.txt)[0m
+                 │   one, two (up, 2)
+                 │   \n
+                 │ [31mgot (result.txt)[0m
+                 │   one, two (up, 2)
+                 │   \n
+                 │ [32mwant[0m
+                 │   ONE, TWO
+                 │   \n
+C16  [32mPASS      [0m  flag after a contraction
+C17  [32mPASS      [0m  unicode word uppercased
+C18  [31mFAIL      [0m  marker result feeds a-an
+                 │ input (sample.txt)[0m
+                 │   a (cap) amazing rock
+                 │   \n
+                 │ [31mgot (result.txt)[0m
+                 │   a (cap) amazing rock
+                 │   \n
+                 │ [32mwant[0m
+                 │   An amazing rock
+                 │   \n
+C19  [32mPASS      [0m  unknown marker passes through
+C20  [33mBONUS FAIL[0m  spaced marker syntax (up , 2)
+                 │ input (sample.txt)[0m
+                 │   go (up , 2) !
+                 │   \n
+                 │ [31mgot (result.txt)[0m
+                 │   go (up , 2) !
+                 │   \n
+                 │ [32mwant[0m
+                 │   GO!
+                 │   \n
+C21  [31mFAIL      [0m  double marks separated by space
+                 │ input (sample.txt)[0m
+                 │   BAMM ! !
+                 │   \n
+                 │ [31mgot (result.txt)[0m
+                 │   BAMM ! !
+                 │   \n
+                 │ [32mwant[0m
+                 │   BAMM!!
+                 │   \n
+C22  [31mFAIL      [0m  mixed group !?
+                 │ input (sample.txt)[0m
+                 │   What !? Really
+                 │   \n
+                 │ [31mgot (result.txt)[0m
+                 │   What !? Really
+                 │   \n
+                 │ [32mwant[0m
+                 │   What!? Really
+                 │   \n
+C23  [32mPASS      [0m  punctuation at start of text
+C24  [33mBONUS FAIL[0m  punctuation at end of text
+                 │ input (sample.txt)[0m
+                 │   hi .
+                 │   \n
+                 │ [31mgot (result.txt)[0m
+                 │   hi .
+                 │   \n
+                 │ [32mwant[0m
+                 │   hi.
+                 │   \n
+C25  [33mBONUS FAIL[0m  punctuation-only input
+                 │ input (sample.txt)[0m
+                 │   ! ?
+                 │   \n
+                 │ [31mgot (result.txt)[0m
+                 │   ! ?
+                 │   \n
+                 │ [32mwant[0m
+                 │   !?
+                 │   \n
+C26  [31mFAIL      [0m  comma glued with word after
+                 │ input (sample.txt)[0m
+                 │   hello,world
+                 │   \n
+                 │ [31mgot (result.txt)[0m
+                 │   hello,world
+                 │   \n
+                 │ [32mwant[0m
+                 │   hello, world
+                 │   \n
+C27  [31mFAIL      [0m  comma spaced before word
+                 │ input (sample.txt)[0m
+                 │   there ,and
+                 │   \n
+                 │ [31mgot (result.txt)[0m
+                 │   there ,and
+                 │   \n
+                 │ [32mwant[0m
+                 │   there, and
+                 │   \n
+C28  [31mFAIL      [0m  ellipsis with spaces
+                 │ input (sample.txt)[0m
+                 │   wait ... what
+                 │   \n
+                 │ [31mgot (result.txt)[0m
+                 │   wait ... what
+                 │   \n
+                 │ [32mwant[0m
+                 │   wait... what
+                 │   \n
+C29  [31mFAIL      [0m  colon before word
+                 │ input (sample.txt)[0m
+                 │   instead of: how (cap)
+                 │   \n
+                 │ [31mgot (result.txt)[0m
+                 │   instead of: how (cap)
+                 │   \n
+                 │ [32mwant[0m
+                 │   instead of: How
+                 │   \n
+C30  [31mFAIL      [0m  semicolon handling
+                 │ input (sample.txt)[0m
+                 │   say ; now
+                 │   \n
+                 │ [31mgot (result.txt)[0m
+                 │   say ; now
+                 │   \n
+                 │ [32mwant[0m
+                 │   say; now
+                 │   \n
+C31  [32mPASS      [0m  contraction is not a quote
+C32  [32mPASS      [0m  possessive apostrophe
+C33  [31mFAIL      [0m  several quote pairs one line
+                 │ input (sample.txt)[0m
+                 │    ' a ' and ' b ' 
+                 │   \n
+                 │ [31mgot (result.txt)[0m
+                 │   ' a ' and ' b '
+                 │   \n
+                 │ [32mwant[0m
+                 │   'a' and 'b'
+                 │   \n
+C34  [31mFAIL      [0m  punctuation inside quotes
+                 │ input (sample.txt)[0m
+                 │    ' hello ! ' 
+                 │   \n
+                 │ [31mgot (result.txt)[0m
+                 │   ' hello ! '
+                 │   \n
+                 │ [32mwant[0m
+                 │   'hello!'
+                 │   \n
+C35  [31mFAIL      [0m  multi word quotes
+                 │ input (sample.txt)[0m
+                 │    ' I am here ' 
+                 │   \n
+                 │ [31mgot (result.txt)[0m
+                 │   ' I am here '
+                 │   \n
+                 │ [32mwant[0m
+                 │   'I am here'
+                 │   \n
+C36  [33mBONUS FAIL[0m  unmatched opening quote
+                 │ input (sample.txt)[0m
+                 │   say ' hello
+                 │   \n
+                 │ [31mgot (result.txt)[0m
+                 │   say ' hello
+                 │   \n
+                 │ [32mwant[0m
+                 │   say 'hello
+                 │   \n
+C37  [31mFAIL      [0m  quote directly after colon
+                 │ input (sample.txt)[0m
+                 │   said: ' hi '
+                 │   \n
+                 │ [31mgot (result.txt)[0m
+                 │   said: ' hi '
+                 │   \n
+                 │ [32mwant[0m
+                 │   said: 'hi'
+                 │   \n
+C38  [31mFAIL      [0m  capital A before vowel
+                 │ input (sample.txt)[0m
+                 │   A amazing rock
+                 │   \n
+                 │ [31mgot (result.txt)[0m
+                 │   A amazing rock
+                 │   \n
+                 │ [32mwant[0m
+                 │   An amazing rock
+                 │   \n
+C39  [31mFAIL      [0m  a before h
+                 │ input (sample.txt)[0m
+                 │   a hour
+                 │   \n
+                 │ [31mgot (result.txt)[0m
+                 │   a hour
+                 │   \n
+                 │ [32mwant[0m
+                 │   an hour
+                 │   \n
+C40  [32mPASS      [0m  a before consonant stays
+C41  [31mFAIL      [0m  capital A before h
+                 │ input (sample.txt)[0m
+                 │   A historic day
+                 │   \n
+                 │ [31mgot (result.txt)[0m
+                 │   A historic day
+                 │   \n
+                 │ [32mwant[0m
+                 │   An historic day
+                 │   \n
+C42  [32mPASS      [0m  a at end of text untouched
+C43  [32mPASS      [0m  multiple spaces collapse
+C44  [33mBONUS FAIL[0m  tabs collapse
+                 │ input (sample.txt)[0m
+                 │   tab	separated (low, 2)
+                 │   \n
+                 │ [31mgot (result.txt)[0m
+                 │   tab separated (low, 2)
+                 │   \n
+                 │ [32mwant[0m
+                 │   tab separated
+                 │   \n
+C45  [32mPASS      [0m  internal newline collapses
+C46  [32mPASS      [0m  trailing newline preserved
+C47  [33mBONUS FAIL[0m  empty input
+                 │ input (sample.txt)[0m
+                 │ [31mgot (result.txt)[0m
+                 │   \n
+                 │ [32mwant[0m
+C48  [33mBONUS FAIL[0m  spaces only
+                 │ input (sample.txt)[0m
+                 │      
+                 │ [31mgot (result.txt)[0m
+                 │   \n
+                 │ [32mwant[0m
+
+[31m== 18 passed, 50 failed, 14 bonus failed ==[0m
+suite: go-reloaded (82 cases)

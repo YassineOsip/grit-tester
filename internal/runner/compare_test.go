@@ -11,8 +11,8 @@ func TestCompareFilesExact(t *testing.T) {
 	if err := os.WriteFile(filepath.Join(dir, "result.txt"), []byte("hi\n"), 0o644); err != nil {
 		t.Fatal(err)
 	}
-	if cr := CompareFiles(dir, map[string]string{"result.txt": "hi\n"}); cr != nil {
-		t.Errorf("want nil, got %v", cr.Mismatches)
+	if diffs := CompareFiles(dir, map[string]string{"result.txt": "hi\n"}); len(diffs) != 0 {
+		t.Errorf("want no diffs, got %+v", diffs)
 	}
 }
 
@@ -21,31 +21,51 @@ func TestCompareFilesMismatchShowsBothSides(t *testing.T) {
 	if err := os.WriteFile(filepath.Join(dir, "result.txt"), []byte("ho\n"), 0o644); err != nil {
 		t.Fatal(err)
 	}
-	cr := CompareFiles(dir, map[string]string{"result.txt": "hi\n"})
-	if cr == nil || len(cr.Mismatches) != 1 {
-		t.Fatalf("want 1 mismatch, got %+v", cr)
+	diffs := CompareFiles(dir, map[string]string{"result.txt": "hi\n"})
+	if len(diffs) != 1 {
+		t.Fatalf("want 1 diff, got %+v", diffs)
 	}
-	if cr.Mismatches[0] != `result.txt: got "ho\n", want "hi\n"` {
-		t.Errorf("mismatch text = %q", cr.Mismatches[0])
+	d := diffs[0]
+	if d.Where != "result.txt" || d.Got != "ho\n" || d.Want != "hi\n" || d.Missing {
+		t.Errorf("diff = %+v", d)
 	}
 }
 
 func TestCompareFilesMissing(t *testing.T) {
-	cr := CompareFiles(t.TempDir(), map[string]string{"result.txt": "hi\n"})
-	if cr == nil {
-		t.Fatal("want mismatch for missing file")
+	diffs := CompareFiles(t.TempDir(), map[string]string{"result.txt": "hi\n"})
+	if len(diffs) != 1 {
+		t.Fatalf("want 1 diff for missing file, got %+v", diffs)
+	}
+	if !diffs[0].Missing || diffs[0].Where != "result.txt" || diffs[0].Want != "hi\n" {
+		t.Errorf("diff = %+v", diffs[0])
+	}
+}
+
+func TestCompareFilesAbsolutePath(t *testing.T) {
+	f := filepath.Join(t.TempDir(), "out.txt")
+	if err := os.WriteFile(f, []byte("hi\n"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	diffs := CompareFiles(t.TempDir(), map[string]string{f: "hi\n"})
+	if len(diffs) != 0 {
+		t.Errorf("absolute-path compare must pass, got %+v", diffs)
+	}
+	diffs = CompareFiles(t.TempDir(), map[string]string{f: "ho\n"})
+	if len(diffs) != 1 || diffs[0].Got != "hi\n" || diffs[0].Want != "ho\n" {
+		t.Errorf("absolute-path mismatch = %+v", diffs)
 	}
 }
 
 func TestCompareStdout(t *testing.T) {
 	want := "out\n"
-	if cr := CompareStdout("out\n", &want); cr != nil {
-		t.Error("want nil for exact stdout")
+	if diffs := CompareStdout("out\n", &want); len(diffs) != 0 {
+		t.Errorf("want no diffs for exact stdout, got %+v", diffs)
 	}
-	if cr := CompareStdout("other\n", &want); cr == nil {
-		t.Error("want mismatch for wrong stdout")
+	diffs := CompareStdout("other\n", &want)
+	if len(diffs) != 1 || diffs[0].Where != "stdout" || diffs[0].Got != "other\n" || diffs[0].Want != "out\n" {
+		t.Errorf("diffs = %+v", diffs)
 	}
-	if cr := CompareStdout("ignored", nil); cr != nil {
-		t.Error("nil want means no check")
+	if diffs := CompareStdout("ignored", nil); diffs != nil {
+		t.Errorf("nil want means no check, got %+v", diffs)
 	}
 }

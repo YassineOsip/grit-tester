@@ -28,6 +28,7 @@ type Case struct {
 	Setup        map[string]string `json:"setup,omitempty"` // path -> content
 	Command      string            `json:"command"`
 	Args         []string          `json:"args,omitempty"`
+	Env          map[string]string `json:"env,omitempty"`     // extra environment for the case's process
 	Workdir      string            `json:"workdir,omitempty"` // may contain {{TARGET}}
 	TimeoutSec   int               `json:"timeout_sec,omitempty"`
 	ExpectFiles  map[string]string `json:"expect_files,omitempty"` // path -> byte-exact content
@@ -41,12 +42,18 @@ func Load(path string) (*Suite, error) {
 	if err != nil {
 		return nil, err
 	}
+	return Parse(path, data)
+}
+
+// Parse decodes and validates a cases.json payload; name is used in error
+// messages only.
+func Parse(name string, data []byte) (*Suite, error) {
 	var s Suite
 	if err := json.Unmarshal(data, &s); err != nil {
-		return nil, fmt.Errorf("parse %s: %w", path, err)
+		return nil, fmt.Errorf("parse %s: %w", name, err)
 	}
 	if err := s.Validate(); err != nil {
-		return nil, fmt.Errorf("validate %s: %w", path, err)
+		return nil, fmt.Errorf("validate %s: %w", name, err)
 	}
 	return &s, nil
 }
@@ -78,6 +85,11 @@ func (s *Suite) Validate() error {
 		}
 		if len(c.ExpectFiles) == 0 && c.ExpectStdout == nil && c.ExpectExit == nil {
 			return fmt.Errorf("case %s: needs at least one expectation (expect_files, expect_stdout or expect_exit)", c.ID)
+		}
+		for k := range c.Env {
+			if k == "" {
+				return fmt.Errorf("case %s: env keys must not be empty", c.ID)
+			}
 		}
 	}
 	return nil

@@ -1,0 +1,86 @@
+ID   STATUS      DESCRIPTION
+A1   PASS        audit case 1: (low,3) (cap) (up,2) + punctuation
+A2   PASS        audit case 2: (bin) and (hex) conversion
+A3   PASS        audit case 3: punctuation only
+A4   PASS        audit case 4: (cap,2) colon quotes a->an
+B1   PASS        README main example
+B2   PASS        hex and bin together
+B3   PASS        a->an before vowel
+B4   PASS        punctuation group ellipsis
+B5   PASS        single up with punctuation
+B6   PASS        single low
+B7   PASS        single cap
+B8   PASS        counted up
+B9   PASS        uppercase hex digits
+B10  PASS        binary two
+B11  PASS        max hex value
+B12  PASS        binary zero
+B13  PASS        punctuation with double marks
+B14  PASS        mixed punctuation group
+B15  PASS        single word quotes
+B16  PASS        multi word quotes
+B17  PASS        capital A to An
+B18  PASS        a to an before h
+B19  PASS        a stays a before consonant
+B20  PASS        flag with nothing before it
+B21  PASS        zero count changes nothing
+B22  PASS        count larger than available words
+B23  PASS        unknown flag word stays untouched
+B24  PASS        trailing newline preserved
+B25  PASS        no trailing newline stays absent
+B26  PASS        contraction stays one word
+B27  PASS        possessive plus quoted phrase
+B28  PASS        multiple quote pairs in one line
+B29  PASS        internal newline collapses to space
+B30  PASS        tabs collapse to space
+C1   PASS        count with no space (up,2)
+C2   PASS        count bigger than available words
+C3   PASS        marker before any word
+C4   PASS        zero count
+C5   PASS        negative count
+C6   PASS        chained markers feed each other
+C7   PASS        markers back to back
+C8   PASS        marker at end of text
+C9   PASS        only a marker, nothing before
+C10  PASS        uppercase hex digits
+C11  PASS        lowercase hex digits
+C12  PASS        hex max value
+C13  PASS        binary zero
+C14  PASS        binary fifteen
+C15  PASS        counted flag across punctuation
+C16  PASS        flag after a contraction
+C17  PASS        unicode word uppercased
+C18  PASS        marker result feeds a-an
+C19  PASS        unknown marker passes through
+C20  PASS        spaced marker syntax (up , 2)
+C21  PASS        double marks separated by space
+C22  PASS        mixed group !?
+C23  PASS        punctuation at start of text
+C24  PASS        punctuation at end of text
+C25  PASS        punctuation-only input
+C26  PASS        comma glued with word after
+C27  PASS        comma spaced before word
+C28  PASS        ellipsis with spaces
+C29  PASS        colon before word
+C30  PASS        semicolon handling
+C31  PASS        contraction is not a quote
+C32  PASS        possessive apostrophe
+C33  PASS        several quote pairs one line
+C34  PASS        punctuation inside quotes
+C35  PASS        multi word quotes
+C36  PASS        unmatched opening quote
+C37  PASS        quote directly after colon
+C38  PASS        capital A before vowel
+C39  PASS        a before h
+C40  PASS        a before consonant stays
+C41  PASS        capital A before h
+C42  PASS        a at end of text untouched
+C43  PASS        multiple spaces collapse
+C44  PASS        tabs collapse
+C45  PASS        internal newline collapses
+C46  PASS        trailing newline preserved
+C47  PASS        empty input
+C48  PASS        spaces only
+
+== 82 passed, 0 failed ==
+suite: go-reloaded (82 cases)
